@@ -1,0 +1,15 @@
+[build-system]
+requires = ["hatchling==1.27.0"]
+build-backend = "hatchling.build"
+
+[project]
+name = "recarena-llm"
+version = "0.1.0"
+requires-python = ">=3.11,<3.12"
+dependencies = ["jsonschema==4.26.0"]
+
+[project.optional-dependencies]
+api = ["openai==3.35.1"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["recarena_llm"]

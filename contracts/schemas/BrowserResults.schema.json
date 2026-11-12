@@ -1,0 +1,390 @@
+{
+  "$defs": {
+    "BrowserBlock": {
+      "additionalProperties": false,
+      "properties": {
+        "block_id": {
+          "title": "Block Id",
+          "type": "string"
+        },
+        "columns": {
+          "title": "Columns",
+          "type": "integer"
+        },
+        "component": {
+          "enum": [
+            "grid",
+            "paged_row"
+          ],
+          "title": "Component",
+          "type": "string"
+        },
+        "has_next_page": {
+          "title": "Has Next Page",
+          "type": "boolean"
+        },
+        "items": {
+          "items": {
+            "$ref": "#/$defs/BrowserCard"
+          },
+          "title": "Items",
+          "type": "array"
+        },
+        "section_page": {
+          "title": "Section Page",
+          "type": "integer"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        },
+        "viewId": {
+          "format": "uuid",
+          "title": "Viewid",
+          "type": "string"
+        }
+      },
+      "required": [
+        "viewId",
+        "block_id",
+        "title",
+        "component",
+        "items",
+        "columns",
+        "section_page",
+        "has_next_page"
+      ],
+      "title": "BrowserBlock",
+      "type": "object"
+    },
+    "BrowserCard": {
+      "additionalProperties": false,
+      "properties": {
+        "default_variant_id": {
+          "anyOf": [
+            {
+              "maxLength": 160,
+              "minLength": 1,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Default Variant Id"
+        },
+        "image_url": {
+          "title": "Image Url",
+          "type": "string"
+        },
+        "item_key": {
+          "title": "Item Key",
+          "type": "string"
+        },
+        "price": {
+          "$ref": "#/$defs/Price"
+        },
+        "product_id": {
+          "maxLength": 160,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "title": "Product Id",
+          "type": "string"
+        },
+        "rating": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Rating"
+        },
+        "requires_option_selection": {
+          "title": "Requires Option Selection",
+          "type": "boolean"
+        },
+        "review_count": {
+          "title": "Review Count",
+          "type": "integer"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        }
+      },
+      "required": [
+        "item_key",
+        "product_id",
+        "title",
+        "image_url",
+        "price",
+        "rating",
+        "review_count",
+        "requires_option_selection",
+        "default_variant_id"
+      ],
+      "title": "BrowserCard",
+      "type": "object"
+    },
+    "Price": {
+      "additionalProperties": false,
+      "properties": {
+        "currency": {
+          "pattern": "^[A-Z]{3}$",
+          "title": "Currency",
+          "type": "string"
+        },
+        "max_minor": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Max Minor"
+        },
+        "min_minor": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Min Minor"
+        }
+      },
+      "required": [
+        "currency",
+        "min_minor",
+        "max_minor"
+      ],
+      "title": "Price",
+      "type": "object"
+    },
+    "PriceBand": {
+      "additionalProperties": false,
+      "properties": {
+        "max_minor": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Max Minor"
+        },
+        "min_minor": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Min Minor"
+        }
+      },
+      "title": "PriceBand",
+      "type": "object"
+    },
+    "PriceFilterOptions": {
+      "additionalProperties": false,
+      "properties": {
+        "bands": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/PriceBand"
+          },
+          "title": "Bands",
+          "type": "array"
+        },
+        "currency": {
+          "pattern": "^[A-Z]{3}$",
+          "title": "Currency",
+          "type": "string"
+        },
+        "max_minor": {
+          "minimum": 0,
+          "title": "Max Minor",
+          "type": "integer"
+        },
+        "max_open_ended": {
+          "default": false,
+          "title": "Max Open Ended",
+          "type": "boolean"
+        },
+        "min_minor": {
+          "minimum": 0,
+          "title": "Min Minor",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "currency",
+        "min_minor",
+        "max_minor"
+      ],
+      "title": "PriceFilterOptions",
+      "type": "object"
+    },
+    "ResultFilters": {
+      "additionalProperties": false,
+      "properties": {
+        "currency": {
+          "anyOf": [
+            {
+              "pattern": "^[A-Z]{3}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Currency"
+        },
+        "max_price_minor": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Max Price Minor"
+        },
+        "min_price_minor": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Min Price Minor"
+        },
+        "min_rating": {
+          "anyOf": [
+            {
+              "enum": [
+                3,
+                4,
+                5
+              ],
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Min Rating"
+        }
+      },
+      "title": "ResultFilters",
+      "type": "object"
+    },
+    "SearchFilterOptions": {
+      "additionalProperties": false,
+      "properties": {
+        "price": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/PriceFilterOptions"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        }
+      },
+      "title": "SearchFilterOptions",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "applied_filters": {
+      "$ref": "#/$defs/ResultFilters"
+    },
+    "blocks": {
+      "items": {
+        "$ref": "#/$defs/BrowserBlock"
+      },
+      "title": "Blocks",
+      "type": "array"
+    },
+    "filter_options": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/SearchFilterOptions"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "has_next_page": {
+      "title": "Has Next Page",
+      "type": "boolean"
+    },
+    "main_page": {
+      "title": "Main Page",
+      "type": "integer"
+    },
+    "main_page_size": {
+      "title": "Main Page Size",
+      "type": "integer"
+    },
+    "query": {
+      "title": "Query",
+      "type": "string"
+    },
+    "result_count": {
+      "title": "Result Count",
+      "type": "integer"
+    },
+    "viewId": {
+      "format": "uuid",
+      "title": "Viewid",
+      "type": "string"
+    }
+  },
+  "required": [
+    "viewId",
+    "query",
+    "result_count",
+    "applied_filters",
+    "filter_options",
+    "main_page",
+    "main_page_size",
+    "has_next_page",
+    "blocks"
+  ],
+  "title": "BrowserResults",
+  "type": "object"
+}

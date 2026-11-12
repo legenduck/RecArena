@@ -1,0 +1,28 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "query": {
+      "maxLength": 512,
+      "minLength": 1,
+      "title": "Query",
+      "type": "string"
+    },
+    "requestKey": {
+      "format": "uuid",
+      "title": "Requestkey",
+      "type": "string"
+    },
+    "viewId": {
+      "format": "uuid",
+      "title": "Viewid",
+      "type": "string"
+    }
+  },
+  "required": [
+    "viewId",
+    "query",
+    "requestKey"
+  ],
+  "title": "BrowserSearch",
+  "type": "object"
+}

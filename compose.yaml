@@ -1,0 +1,132 @@
+name: recarena
+
+x-build-args: &build-args
+  RECARENA_CODE_COMMIT: ${RECARENA_CODE_COMMIT:-}
+  RECARENA_SOURCE_TREE_SHA256: ${RECARENA_SOURCE_TREE_SHA256:-}
+  RECARENA_CODE_DIRTY: ${RECARENA_CODE_DIRTY:-}
+
+x-runtime: &runtime
+  platform: linux/amd64
+  user: "${RECARENA_UID:?Run recarena init first}:${RECARENA_GID:?Run recarena init first}"
+  init: true
+  read_only: true
+  cap_drop: [ALL]
+  security_opt: [no-new-privileges:true]
+  tmpfs: [/tmp]
+  restart: unless-stopped
+  pull_policy: never
+
+services:
+  postgres:
+    image: postgres:16.15-bookworm@sha256:0ea6700a3b4f0ae6ce746519073558aed4d88a79d8d07622a9a644946c7319c4
+    platform: linux/amd64
+    environment:
+      POSTGRES_USER: ${RECARENA_DB_USER:-recarena}
+      POSTGRES_DB: ${RECARENA_DB_NAME:-recarena}
+      POSTGRES_PASSWORD_FILE: /run/secrets/db_password
+    secrets: [db_password]
+    volumes: [postgres-data:/var/lib/postgresql/data]
+    networks: [backend]
+    restart: unless-stopped
+    healthcheck:
+      test: [CMD-SHELL, "pg_isready -U \"$$POSTGRES_USER\" -d \"$$POSTGRES_DB\""]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+
+  platform-api:
+    <<: *runtime
+    build:
+      context: .
+      dockerfile: docker/platform.Dockerfile
+      args: *build-args
+    image: recarena-platform:${RECARENA_IMAGE_TAG:-local}
+    environment: &platform-env
+      WEB_CONCURRENCY: ${RECARENA_PLATFORM_WORKERS:-1}
+      RECARENA_DB_POOL_SIZE: ${RECARENA_DB_POOL_SIZE:-5}
+      RECARENA_DB_MAX_OVERFLOW: ${RECARENA_DB_MAX_OVERFLOW:-10}
+      RECARENA_DB_PASSWORD_FILE: /run/secrets/db_password
+      RECARENA_DB_USER: ${RECARENA_DB_USER:-recarena}
+      RECARENA_DB_NAME: ${RECARENA_DB_NAME:-recarena}
+      RECARENA_ADMIN_TOKEN_FILE: /run/secrets/admin_token
+      RECARENA_SESSION_API_KEY_FILE: /run/secrets/session_api_key
+      RECARENA_SESSION_COOKIE: ${RECARENA_SESSION_COOKIE:-recarena_session}
+      RECARENA_INTERNAL_TOKEN_FILE: /run/secrets/internal_token
+      RECARENA_RANKER_URL: ${RECARENA_RANKER_URL:-http://127.0.0.1:8011}
+      RECARENA_RECOMMENDATION_SERVICES: '${RECARENA_RECOMMENDATION_SERVICES:-{}}'
+      RECARENA_SHOP_URL: ${RECARENA_SHOP_URL:-http://127.0.0.1:5173}
+      RECARENA_ADMIN_URL: ${RECARENA_ADMIN_URL:-http://127.0.0.1:5174}
+      RECARENA_ASSET_CONFIG: /app/configs/local/docker/assets.json
+      RECARENA_ARTIFACT_ROOT: /app/artifacts
+      RECARENA_EXPORT_ROOT: /app/outputs/exports
+    secrets: [db_password,admin_token,internal_token,session_api_key]
+    volumes:
+      - ./artifacts:/app/artifacts:ro
+      - ./outputs:/app/outputs
+      - ./configs/local/docker/assets.json:/app/configs/local/docker/assets.json:ro
+    networks: [backend]
+    depends_on:
+      postgres: {condition: service_healthy}
+    healthcheck:
+      test: [CMD, python, -c, "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8010/health/ready',timeout=2)"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  shop-web:
+    <<: *runtime
+    build: {context: ., dockerfile: docker/web.Dockerfile, target: shop}
+    image: recarena-shop:${RECARENA_IMAGE_TAG:-local}
+    environment:
+      RECARENA_PLATFORM_URL: http://platform-api:8010
+      RECARENA_SHOP_URL: ${RECARENA_SHOP_URL:-http://127.0.0.1:5173}
+      RECARENA_SESSION_COOKIE: ${RECARENA_SESSION_COOKIE:-recarena_session}
+    ports: ["127.0.0.1:${RECARENA_SHOP_PORT:-5173}:8080"]
+    networks: [backend]
+    healthcheck:
+      test: [CMD, node, -e, "fetch('http://127.0.0.1:8080/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  admin-web:
+    <<: *runtime
+    build: {context: ., dockerfile: docker/web.Dockerfile, target: admin}
+    image: recarena-admin:${RECARENA_IMAGE_TAG:-local}
+    ports: ["127.0.0.1:${RECARENA_ADMIN_PORT:-5174}:8080"]
+    networks: [backend]
+    healthcheck:
+      test: [CMD, wget, -q, -O, /dev/null, http://127.0.0.1:8080/health]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  prepare:
+    <<: *runtime
+    profiles: [prepare]
+    image: recarena-platform:${RECARENA_IMAGE_TAG:-local}
+    restart: "no"
+    environment: *platform-env
+    secrets: [db_password,admin_token,internal_token,session_api_key]
+    volumes:
+      - ${RECARENA_RAW_DATA:-./data/raw}:/input:ro
+      - ./artifacts:/app/artifacts
+      - ./outputs:/app/outputs
+      - ./configs/local/jobs:/app/configs/jobs:ro
+    networks: [backend]
+    depends_on:
+      postgres: {condition: service_healthy}
+    command: [python, -m, recarena_platform.cli, --help]
+
+
+networks:
+  backend: {}
+
+volumes:
+  postgres-data: {}
+
+secrets:
+  session_api_key: {file: ./configs/local/docker/session_api_key.secret}
+  db_password: {file: ./configs/local/docker/db_password.secret}
+  admin_token: {file: ./configs/local/docker/admin_token.secret}
+  internal_token: {file: ./configs/local/docker/internal_token.secret}

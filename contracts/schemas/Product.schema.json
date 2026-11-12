@@ -1,0 +1,143 @@
+{
+  "$defs": {
+    "JsonValue": {}
+  },
+  "additionalProperties": false,
+  "properties": {
+    "attributes": {
+      "additionalProperties": {
+        "$ref": "#/$defs/JsonValue"
+      },
+      "title": "Attributes",
+      "type": "object"
+    },
+    "brand": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Brand"
+    },
+    "categories": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "Categories",
+      "type": "array"
+    },
+    "currency": {
+      "pattern": "^[A-Z]{3}$",
+      "title": "Currency",
+      "type": "string"
+    },
+    "dataset_snapshot_id": {
+      "maxLength": 160,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+      "title": "Dataset Snapshot Id",
+      "type": "string"
+    },
+    "description": {
+      "default": "",
+      "title": "Description",
+      "type": "string"
+    },
+    "display_rating": {
+      "anyOf": [
+        {
+          "maximum": 5,
+          "minimum": 1,
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Display Rating"
+    },
+    "display_review_count": {
+      "default": 0,
+      "minimum": 0,
+      "title": "Display Review Count",
+      "type": "integer"
+    },
+    "features": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "Features",
+      "type": "array"
+    },
+    "image_asset_ids": {
+      "default": [],
+      "items": {
+        "maxLength": 160,
+        "minLength": 1,
+        "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+        "type": "string"
+      },
+      "title": "Image Asset Ids",
+      "type": "array"
+    },
+    "image_urls": {
+      "default": [],
+      "items": {
+        "format": "uri",
+        "pattern": "^https?://",
+        "type": "string"
+      },
+      "title": "Image Urls",
+      "type": "array"
+    },
+    "product_id": {
+      "maxLength": 160,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+      "title": "Product Id",
+      "type": "string"
+    },
+    "product_status": {
+      "default": "active",
+      "enum": [
+        "active",
+        "excluded"
+      ],
+      "title": "Product Status",
+      "type": "string"
+    },
+    "source_parent_asin": {
+      "title": "Source Parent Asin",
+      "type": "string"
+    },
+    "source_provenance": {
+      "additionalProperties": {
+        "$ref": "#/$defs/JsonValue"
+      },
+      "title": "Source Provenance",
+      "type": "object"
+    },
+    "title": {
+      "minLength": 1,
+      "title": "Title",
+      "type": "string"
+    }
+  },
+  "required": [
+    "dataset_snapshot_id",
+    "product_id",
+    "source_parent_asin",
+    "title",
+    "currency",
+    "source_provenance"
+  ],
+  "title": "Product",
+  "type": "object"
+}

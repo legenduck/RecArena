@@ -1,0 +1,22 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "quantity": {
+      "maximum": 99,
+      "minimum": 1,
+      "title": "Quantity",
+      "type": "integer"
+    },
+    "viewId": {
+      "format": "uuid",
+      "title": "Viewid",
+      "type": "string"
+    }
+  },
+  "required": [
+    "viewId",
+    "quantity"
+  ],
+  "title": "BrowserCartQuantity",
+  "type": "object"
+}

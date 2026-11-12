@@ -1,0 +1,95 @@
+{
+  "$defs": {
+    "UtilityEntry": {
+      "additionalProperties": false,
+      "properties": {
+        "product_id": {
+          "maxLength": 160,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "title": "Product Id",
+          "type": "string"
+        },
+        "quantity": {
+          "maximum": 99,
+          "minimum": 1,
+          "title": "Quantity",
+          "type": "integer"
+        },
+        "utility": {
+          "title": "Utility",
+          "type": "number"
+        },
+        "variant_id": {
+          "maxLength": 160,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "title": "Variant Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "product_id",
+        "variant_id",
+        "quantity",
+        "utility"
+      ],
+      "title": "UtilityEntry",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "abandonment_utility": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Abandonment Utility"
+    },
+    "entries": {
+      "items": {
+        "$ref": "#/$defs/UtilityEntry"
+      },
+      "minItems": 1,
+      "title": "Entries",
+      "type": "array"
+    },
+    "kind": {
+      "const": "explicit_table",
+      "default": "explicit_table",
+      "title": "Kind",
+      "type": "string"
+    },
+    "quantity_domain": {
+      "items": {
+        "maximum": 99,
+        "minimum": 1,
+        "type": "integer"
+      },
+      "minItems": 1,
+      "title": "Quantity Domain",
+      "type": "array"
+    },
+    "reference_scope": {
+      "enum": [
+        "entire_catalog",
+        "specified_eligible_set"
+      ],
+      "title": "Reference Scope",
+      "type": "string"
+    }
+  },
+  "required": [
+    "reference_scope",
+    "quantity_domain",
+    "entries"
+  ],
+  "title": "UtilitySpec",
+  "type": "object"
+}

@@ -1,0 +1,180 @@
+{
+  "$defs": {
+    "AgentDeclaration": {
+      "additionalProperties": false,
+      "properties": {
+        "model": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Model"
+        },
+        "name": {
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "settings": {
+          "additionalProperties": {
+            "$ref": "#/$defs/JsonValue"
+          },
+          "title": "Settings",
+          "type": "object"
+        },
+        "version": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Version"
+        }
+      },
+      "required": [
+        "name"
+      ],
+      "title": "AgentDeclaration",
+      "type": "object"
+    },
+    "ComparisonCondition": {
+      "additionalProperties": false,
+      "properties": {
+        "environment_version_id": {
+          "maxLength": 160,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "title": "Environment Version Id",
+          "type": "string"
+        },
+        "label": {
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "Label",
+          "type": "string"
+        }
+      },
+      "required": [
+        "label",
+        "environment_version_id"
+      ],
+      "title": "ComparisonCondition",
+      "type": "object"
+    },
+    "JsonValue": {},
+    "RunLimits": {
+      "additionalProperties": false,
+      "properties": {
+        "max_quantity": {
+          "default": 99,
+          "maximum": 99,
+          "minimum": 1,
+          "title": "Max Quantity",
+          "type": "integer"
+        }
+      },
+      "title": "RunLimits",
+      "type": "object"
+    },
+    "UserTaskPair": {
+      "additionalProperties": false,
+      "properties": {
+        "task_version_id": {
+          "maxLength": 160,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "title": "Task Version Id",
+          "type": "string"
+        },
+        "user_id": {
+          "maxLength": 160,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "title": "User Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "user_id",
+        "task_version_id"
+      ],
+      "title": "UserTaskPair",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "agent": {
+      "$ref": "#/$defs/AgentDeclaration"
+    },
+    "conditions": {
+      "items": {
+        "$ref": "#/$defs/ComparisonCondition"
+      },
+      "minItems": 1,
+      "title": "Conditions",
+      "type": "array"
+    },
+    "limits": {
+      "$ref": "#/$defs/RunLimits"
+    },
+    "name": {
+      "maxLength": 200,
+      "minLength": 1,
+      "title": "Name",
+      "type": "string"
+    },
+    "pairs": {
+      "items": {
+        "$ref": "#/$defs/UserTaskPair"
+      },
+      "minItems": 1,
+      "title": "Pairs",
+      "type": "array"
+    },
+    "preset": {
+      "default": "policy_comparison",
+      "enum": [
+        "policy_comparison",
+        "custom"
+      ],
+      "title": "Preset",
+      "type": "string"
+    },
+    "repetitions": {
+      "default": 1,
+      "minimum": 1,
+      "title": "Repetitions",
+      "type": "integer"
+    },
+    "seeds": {
+      "default": [
+        42
+      ],
+      "items": {
+        "maximum": 9223372036854775807,
+        "minimum": -9223372036854775808,
+        "type": "integer"
+      },
+      "title": "Seeds",
+      "type": "array"
+    }
+  },
+  "required": [
+    "name",
+    "conditions",
+    "pairs",
+    "agent"
+  ],
+  "title": "ExperimentCreate",
+  "type": "object"
+}

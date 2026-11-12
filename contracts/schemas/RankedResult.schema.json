@@ -1,0 +1,112 @@
+{
+  "$defs": {
+    "JsonValue": {},
+    "RankedItem": {
+      "additionalProperties": false,
+      "properties": {
+        "final_rank": {
+          "minimum": 1,
+          "title": "Final Rank",
+          "type": "integer"
+        },
+        "final_score": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Final Score"
+        },
+        "product_id": {
+          "maxLength": 160,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "title": "Product Id",
+          "type": "string"
+        },
+        "retrieval_rank": {
+          "minimum": 1,
+          "title": "Retrieval Rank",
+          "type": "integer"
+        },
+        "score_components": {
+          "additionalProperties": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "title": "Score Components",
+          "type": "object"
+        },
+        "signal_missing_flags": {
+          "additionalProperties": {
+            "type": "boolean"
+          },
+          "title": "Signal Missing Flags",
+          "type": "object"
+        }
+      },
+      "required": [
+        "product_id",
+        "retrieval_rank",
+        "final_rank"
+      ],
+      "title": "RankedItem",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "candidate_set_id": {
+      "maxLength": 160,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+      "title": "Candidate Set Id",
+      "type": "string"
+    },
+    "diagnostics": {
+      "additionalProperties": {
+        "$ref": "#/$defs/JsonValue"
+      },
+      "title": "Diagnostics",
+      "type": "object"
+    },
+    "policy_version_id": {
+      "maxLength": 160,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+      "title": "Policy Version Id",
+      "type": "string"
+    },
+    "provenance": {
+      "additionalProperties": {
+        "$ref": "#/$defs/JsonValue"
+      },
+      "title": "Provenance",
+      "type": "object"
+    },
+    "ranked_items": {
+      "items": {
+        "$ref": "#/$defs/RankedItem"
+      },
+      "title": "Ranked Items",
+      "type": "array"
+    }
+  },
+  "required": [
+    "candidate_set_id",
+    "policy_version_id",
+    "ranked_items"
+  ],
+  "title": "RankedResult",
+  "type": "object"
+}

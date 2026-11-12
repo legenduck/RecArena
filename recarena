@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+set -euo pipefail
+RECARENA_ROOT="$(cd "$(dirname "$0")" && pwd)"
+export RECARENA_ROOT
+cd "$RECARENA_ROOT"
+if [[ -n "${RECARENA_INSTANCE_ENV:-}" ]]; then source "$RECARENA_INSTANCE_ENV"; fi
+case "${1:-}" in
+  init|doctor|config-check|build-images|up|down)
+    exec python3 scripts/compose.py "$@"
+    ;;
+  *) exec python3 scripts/platform_cli.py "$@" ;;
+esac

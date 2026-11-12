@@ -1,0 +1,25 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "task_version_id": {
+      "maxLength": 160,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+      "title": "Task Version Id",
+      "type": "string"
+    },
+    "user_id": {
+      "maxLength": 160,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+      "title": "User Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "user_id",
+    "task_version_id"
+  ],
+  "title": "UserTaskPair",
+  "type": "object"
+}

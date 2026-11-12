@@ -1,0 +1,33 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "catalog_snapshot_id": {
+      "maxLength": 160,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+      "title": "Catalog Snapshot Id",
+      "type": "string"
+    },
+    "history_snapshot_id": {
+      "maxLength": 160,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+      "title": "History Snapshot Id",
+      "type": "string"
+    },
+    "review_snapshot_id": {
+      "maxLength": 160,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+      "title": "Review Snapshot Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "catalog_snapshot_id",
+    "review_snapshot_id",
+    "history_snapshot_id"
+  ],
+  "title": "EnvironmentBindings",
+  "type": "object"
+}

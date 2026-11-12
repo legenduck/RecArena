@@ -1,0 +1,116 @@
+{
+  "$defs": {
+    "Price": {
+      "additionalProperties": false,
+      "properties": {
+        "currency": {
+          "pattern": "^[A-Z]{3}$",
+          "title": "Currency",
+          "type": "string"
+        },
+        "max_minor": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Max Minor"
+        },
+        "min_minor": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Min Minor"
+        }
+      },
+      "required": [
+        "currency",
+        "min_minor",
+        "max_minor"
+      ],
+      "title": "Price",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "default_variant_id": {
+      "anyOf": [
+        {
+          "maxLength": 160,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Default Variant Id"
+    },
+    "image_url": {
+      "title": "Image Url",
+      "type": "string"
+    },
+    "item_key": {
+      "title": "Item Key",
+      "type": "string"
+    },
+    "price": {
+      "$ref": "#/$defs/Price"
+    },
+    "product_id": {
+      "maxLength": 160,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+      "title": "Product Id",
+      "type": "string"
+    },
+    "rating": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Rating"
+    },
+    "requires_option_selection": {
+      "title": "Requires Option Selection",
+      "type": "boolean"
+    },
+    "review_count": {
+      "title": "Review Count",
+      "type": "integer"
+    },
+    "title": {
+      "title": "Title",
+      "type": "string"
+    }
+  },
+  "required": [
+    "item_key",
+    "product_id",
+    "title",
+    "image_url",
+    "price",
+    "rating",
+    "review_count",
+    "requires_option_selection",
+    "default_variant_id"
+  ],
+  "title": "BrowserCard",
+  "type": "object"
+}

@@ -1,0 +1,247 @@
+{
+  "$defs": {
+    "JsonValue": {},
+    "PublicSelection": {
+      "additionalProperties": false,
+      "properties": {
+        "quantity": {
+          "maximum": 99,
+          "minimum": 1,
+          "title": "Quantity",
+          "type": "integer"
+        },
+        "variant_id": {
+          "maxLength": 160,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "title": "Variant Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "variant_id",
+        "quantity"
+      ],
+      "title": "PublicSelection",
+      "type": "object"
+    },
+    "PublicVariant": {
+      "additionalProperties": false,
+      "properties": {
+        "attributes_override": {
+          "additionalProperties": {
+            "$ref": "#/$defs/JsonValue"
+          },
+          "title": "Attributes Override",
+          "type": "object"
+        },
+        "currency": {
+          "pattern": "^[A-Z]{3}$",
+          "title": "Currency",
+          "type": "string"
+        },
+        "image_urls": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Image Urls",
+          "type": "array"
+        },
+        "is_available": {
+          "title": "Is Available",
+          "type": "boolean"
+        },
+        "is_purchasable": {
+          "title": "Is Purchasable",
+          "type": "boolean"
+        },
+        "option_values": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "title": "Option Values",
+          "type": "object"
+        },
+        "unit_price_minor": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Unit Price Minor"
+        },
+        "variant_id": {
+          "maxLength": 160,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "title": "Variant Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "variant_id",
+        "option_values",
+        "attributes_override",
+        "unit_price_minor",
+        "currency",
+        "image_urls",
+        "is_available",
+        "is_purchasable"
+      ],
+      "title": "PublicVariant",
+      "type": "object"
+    },
+    "ReviewRatingCount": {
+      "additionalProperties": false,
+      "properties": {
+        "count": {
+          "minimum": 0,
+          "title": "Count",
+          "type": "integer"
+        },
+        "rating": {
+          "maximum": 5,
+          "minimum": 1,
+          "title": "Rating",
+          "type": "number"
+        }
+      },
+      "required": [
+        "rating",
+        "count"
+      ],
+      "title": "ReviewRatingCount",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "attributes": {
+      "additionalProperties": {
+        "$ref": "#/$defs/JsonValue"
+      },
+      "title": "Attributes",
+      "type": "object"
+    },
+    "brand": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Brand"
+    },
+    "categories": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Categories",
+      "type": "array"
+    },
+    "description": {
+      "title": "Description",
+      "type": "string"
+    },
+    "features": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Features",
+      "type": "array"
+    },
+    "image_urls": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Image Urls",
+      "type": "array"
+    },
+    "product_id": {
+      "maxLength": 160,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+      "title": "Product Id",
+      "type": "string"
+    },
+    "rating": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Rating"
+    },
+    "rating_distribution": {
+      "anyOf": [
+        {
+          "items": {
+            "$ref": "#/$defs/ReviewRatingCount"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Rating Distribution"
+    },
+    "review_count": {
+      "title": "Review Count",
+      "type": "integer"
+    },
+    "selection": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/PublicSelection"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "title": {
+      "title": "Title",
+      "type": "string"
+    },
+    "variants": {
+      "items": {
+        "$ref": "#/$defs/PublicVariant"
+      },
+      "title": "Variants",
+      "type": "array"
+    },
+    "viewId": {
+      "format": "uuid",
+      "title": "Viewid",
+      "type": "string"
+    }
+  },
+  "required": [
+    "viewId",
+    "product_id",
+    "title",
+    "brand",
+    "description",
+    "features",
+    "categories",
+    "attributes",
+    "image_urls",
+    "rating",
+    "review_count",
+    "variants",
+    "selection"
+  ],
+  "title": "BrowserProduct",
+  "type": "object"
+}

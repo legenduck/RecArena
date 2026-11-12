@@ -1,0 +1,51 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "page_type": {
+      "enum": [
+        "home",
+        "results",
+        "detail",
+        "cart",
+        "terminal"
+      ],
+      "title": "Page Type",
+      "type": "string"
+    },
+    "product_id": {
+      "anyOf": [
+        {
+          "maxLength": 160,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Product Id"
+    },
+    "result_snapshot_id": {
+      "anyOf": [
+        {
+          "maxLength": 160,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Result Snapshot Id"
+    }
+  },
+  "required": [
+    "page_type"
+  ],
+  "title": "PagePayload",
+  "type": "object"
+}

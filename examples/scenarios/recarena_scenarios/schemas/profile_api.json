@@ -1,0 +1,275 @@
+{
+  "description": "A shopping profile describing the user's circumstances, product use and selection criteria, grounded in the supplied reviews with concrete content.",
+  "type": "object",
+  "properties": {
+    "background_facts": {
+      "type": "object",
+      "properties": {
+        "equipment": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/fact"
+          },
+          "description": "Reported tools/devices used with products and their limitations."
+        },
+        "environment": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/fact"
+          },
+          "description": "Reported facilities, space, surroundings or local services relevant to using or choosing products."
+        },
+        "people": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/fact"
+          },
+          "description": "Stated relationships and relevant information about other people involved in shopping or use."
+        },
+        "personal_conditions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/fact"
+          },
+          "description": "Directly reported personal needs, capabilities, sensitivities or constraints relevant to choosing or using products; preserve attribution and historical uncertainty."
+        }
+      },
+      "required": [
+        "equipment",
+        "environment",
+        "people",
+        "personal_conditions"
+      ],
+      "additionalProperties": false
+    },
+    "usage_patterns": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/usage"
+      },
+      "description": "How the person buys, prepares, uses, stores and repurchases these products, at the level the evidence supports: a stated routine or repeated accounts support a pattern; one episode stays one episode; a plan stays a plan. General use suggestions are not usage records."
+    },
+    "product_preferences": {
+      "type": "object",
+      "properties": {
+        "brand": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/preference"
+          },
+          "description": "Attitudes toward named brands, product lines or products: favorites and avoidances. A favorite or avoided product is named as that product, not its whole brand."
+        },
+        "price": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/preference"
+          },
+          "description": "Price sensitivity, value judgments, willingness to pay and trade-offs against other aspects, from the person's words. Not inference from listed-price statistics."
+        },
+        "review": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/preference"
+          },
+          "description": "Attitudes toward and use of other people's product reviews as information, including limited trust or criticism. Do not infer rating-caused purchases."
+        },
+        "functional": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/preference"
+          },
+          "description": "Criteria about contents, ingredients, materials, specifications, compatibility, size, packaging, preparation effort and performance."
+        },
+        "subjective": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/preference"
+          },
+          "description": "Criteria about experienced qualities: taste, aroma, texture, sound, comfort, appearance and style. Noticing a quality is not wanting it."
+        }
+      },
+      "required": [
+        "brand",
+        "price",
+        "review",
+        "functional",
+        "subjective"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "background_facts",
+    "usage_patterns",
+    "product_preferences"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "context": {
+      "type": "object",
+      "properties": {
+        "for_whom": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The intended product user/beneficiary, not the attitude-holder. State the actor or attitude-holder in behavior/preference. A buyer's preference for a gift recipient is not automatically the recipient's own preference. The user by default for the writer's own use; null only when the passage concerns no particular person."
+        },
+        "when": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Relevant time, season or occasion. For usage: from a reported activity or explicitly stated plan. For preferences: a condition the person states for their own attitude, not necessarily an experienced event; a suggested use is not such a condition. null if unstated."
+        },
+        "where": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The explicitly stated location where the product is used or selected. null if unstated."
+        },
+        "purpose": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Stated aim/intended use of the activity or criterion; a suggested use of the product is not the person's aim. Do not restate the behavior or invent a motive. null if unstated."
+        }
+      },
+      "required": [
+        "for_whom",
+        "when",
+        "where",
+        "purpose"
+      ],
+      "additionalProperties": false
+    },
+    "evidence": {
+      "type": "object",
+      "properties": {
+        "reviews": {
+          "type": "array",
+          "description": "Verbatim review_title/review_text spans supporting retained claims, linked to actual assigned record IDs.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "review_id": {
+                "type": "string"
+              },
+              "quote": {
+                "type": "string",
+                "description": "A passage excerpted verbatim from the input history. Do not write an interpreted sentence or insert ellipses as if it were original text."
+              },
+              "evidence_type": {
+                "enum": [
+                  "explicit_preference",
+                  "aspect_evaluation",
+                  "product_description",
+                  "overall_evaluation",
+                  "fact_or_usage"
+                ],
+                "type": "string",
+                "description": "Classify the actual quoted span consistently, regardless of the section citing it: explicit_preference = stated taste/choice criterion; aspect_evaluation = evaluation of aspect(s), performance or scoped use outcome; product_description = observation without an evaluative stance; overall_evaluation = attitude to a whole product, including textual overall rating, never all its attributes; fact_or_usage = reported personal circumstance/activity/experience/concrete intention. Focus spans where possible. For indivisible mixed spans use priority explicit_preference > aspect_evaluation > overall_evaluation > fact_or_usage > product_description. Assign the type from the quoted passage, not the section containing the item."
+              }
+            },
+            "required": [
+              "review_id",
+              "quote",
+              "evidence_type"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "reviews"
+      ],
+      "additionalProperties": false
+    },
+    "fact": {
+      "type": "object",
+      "properties": {
+        "fact": {
+          "type": "string"
+        },
+        "evidence": {
+          "$ref": "#/$defs/evidence"
+        }
+      },
+      "required": [
+        "fact",
+        "evidence"
+      ],
+      "additionalProperties": false
+    },
+    "usage": {
+      "type": "object",
+      "properties": {
+        "scope": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The product or product/use range the activity covers, as far as its evidence reaches. Do not repeat the full main category; null if unsupported."
+        },
+        "context": {
+          "$ref": "#/$defs/context"
+        },
+        "behavior": {
+          "type": "string",
+          "description": "State the actor and the reported act, experience or concrete intention, with supported method/frequency. Distinguish a habit, occasional action, one episode and a plan. No habit inference from present tense alone."
+        },
+        "evidence": {
+          "$ref": "#/$defs/evidence"
+        }
+      },
+      "required": [
+        "scope",
+        "context",
+        "behavior",
+        "evidence"
+      ],
+      "additionalProperties": false
+    },
+    "preference": {
+      "type": "object",
+      "properties": {
+        "scope": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The products the attitude ranges over: for a criterion, what the person is choosing among (the product type unless they narrow it in their own words); for a single evaluation of one product, that product. Whatever makes the person prefer one product over another is the preference, never the scope; occasions, purposes and recipients go in context; reviewed products are evidence. Name the product type briefly rather than the full category path."
+        },
+        "preference": {
+          "type": "string",
+          "description": "State the attitude-holder, the concrete aspect they judged, the result they want, and any exception, accepted compromise, condition or change. It must hold for all cited evidence. Not a value word such as quality or reliability."
+        },
+        "context": {
+          "$ref": "#/$defs/context"
+        },
+        "strength": {
+          "enum": [
+            "required",
+            "preferred",
+            "unspecified"
+          ],
+          "description": "required: an explicit necessity/exclusion in this scope and situation; preferred: a like/dislike, relative choice, named favorite or aspect satisfaction/dissatisfaction; unspecified: attitude is supported but its requirement level is unclear. Counts, routine and enthusiasm do not make it required.",
+          "type": "string"
+        },
+        "evidence": {
+          "$ref": "#/$defs/evidence"
+        }
+      },
+      "required": [
+        "scope",
+        "preference",
+        "context",
+        "strength",
+        "evidence"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

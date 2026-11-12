@@ -1,0 +1,41 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "currency": {
+      "pattern": "^[A-Z]{3}$",
+      "title": "Currency",
+      "type": "string"
+    },
+    "max_minor": {
+      "anyOf": [
+        {
+          "minimum": 0,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Max Minor"
+    },
+    "min_minor": {
+      "anyOf": [
+        {
+          "minimum": 0,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Min Minor"
+    }
+  },
+  "required": [
+    "currency",
+    "min_minor",
+    "max_minor"
+  ],
+  "title": "Price",
+  "type": "object"
+}

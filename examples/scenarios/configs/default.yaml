@@ -1,0 +1,22 @@
+# Edit before prepare. The run keeps a frozen copy; generate does not change it.
+selection:
+  min_reviews: 50
+  min_category_reviews: 10
+  target_min_rating: 4
+  allow_new_targets: true
+  sample_size: 100
+  seed: 42
+  threads: 8
+  memory_limit: 8GB
+generation:
+  intents: [as]                    # as, tf (TFA only), or [as, tf]
+  concurrency: 8
+  profile_repairs: 1
+  task_repairs: 2
+llm:
+  model: gpt-6-luna
+  reasoning: xhigh
+  max_output_tokens: 128000
+  base_url: https://api.openai.com/v1
+  timeout_seconds: 600
+  network_retries: 1

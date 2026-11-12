@@ -1,0 +1,68 @@
+{
+  "$defs": {
+    "RunLimits": {
+      "additionalProperties": false,
+      "properties": {
+        "max_quantity": {
+          "default": 99,
+          "maximum": 99,
+          "minimum": 1,
+          "title": "Max Quantity",
+          "type": "integer"
+        }
+      },
+      "title": "RunLimits",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "environment_version_id": {
+      "maxLength": 160,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+      "title": "Environment Version Id",
+      "type": "string"
+    },
+    "limits": {
+      "$ref": "#/$defs/RunLimits"
+    },
+    "run_kind": {
+      "default": "research",
+      "enum": [
+        "research",
+        "preview"
+      ],
+      "title": "Run Kind",
+      "type": "string"
+    },
+    "task_version_id": {
+      "anyOf": [
+        {
+          "maxLength": 160,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Task Version Id"
+    },
+    "user_id": {
+      "maxLength": 160,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+      "title": "User Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "environment_version_id",
+    "user_id"
+  ],
+  "title": "RunCreate",
+  "type": "object"
+}

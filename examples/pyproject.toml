@@ -1,0 +1,45 @@
+[project]
+name = "recarena-examples"
+version = "0.1.0"
+requires-python = ">=3.11,<3.12"
+dependencies = ["recarena-data"]
+
+[project.optional-dependencies]
+scenarios = ["recarena-scenarios[llm]"]
+judging = ["recarena-judging[llm]"]
+training = ["recarena-training", "torch==2.5.1+cu121"]
+training-cpu = ["recarena-training", "torch==2.5.1+cpu"]
+
+[dependency-groups]
+dev = ["pytest==8.3.5", "httpx==0.28.1"]
+
+[tool.uv]
+package = false
+default-groups = []
+conflicts = [[{ extra = "training" }, { extra = "training-cpu" }]]
+
+[tool.uv.workspace]
+members = ["data", "recommendation/training", "scenarios", "judging", "llm"]
+exclude = ["recommendation/ranker"]
+
+[tool.uv.sources]
+recarena-data = { workspace = true }
+recarena-scenarios = { workspace = true }
+recarena-judging = { workspace = true }
+recarena-llm = { workspace = true }
+recarena-training = { workspace = true }
+recarena-contracts = { path = "../contracts", editable = true }
+torch = [
+  { index = "pytorch-cu121", extra = "training" },
+  { index = "pytorch-cpu", extra = "training-cpu" },
+]
+
+[[tool.uv.index]]
+name = "pytorch-cu121"
+url = "https://download.pytorch.org/whl/cu121"
+explicit = true
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true

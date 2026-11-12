@@ -1,0 +1,97 @@
+{
+  "$defs": {
+    "PublicReview": {
+      "additionalProperties": false,
+      "properties": {
+        "body": {
+          "title": "Body",
+          "type": "string"
+        },
+        "display_author_alias": {
+          "title": "Display Author Alias",
+          "type": "string"
+        },
+        "helpful_votes": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Helpful Votes"
+        },
+        "rating": {
+          "title": "Rating",
+          "type": "number"
+        },
+        "review_id": {
+          "maxLength": 160,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "title": "Review Id",
+          "type": "string"
+        },
+        "timestamp_utc": {
+          "format": "date-time",
+          "title": "Timestamp Utc",
+          "type": "string"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        },
+        "verified_purchase": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Verified Purchase"
+        }
+      },
+      "required": [
+        "review_id",
+        "display_author_alias",
+        "rating",
+        "title",
+        "body",
+        "timestamp_utc",
+        "verified_purchase",
+        "helpful_votes"
+      ],
+      "title": "PublicReview",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "has_more": {
+      "title": "Has More",
+      "type": "boolean"
+    },
+    "reviews": {
+      "items": {
+        "$ref": "#/$defs/PublicReview"
+      },
+      "title": "Reviews",
+      "type": "array"
+    },
+    "viewId": {
+      "format": "uuid",
+      "title": "Viewid",
+      "type": "string"
+    }
+  },
+  "required": [
+    "viewId",
+    "reviews",
+    "has_more"
+  ],
+  "title": "BrowserReviews",
+  "type": "object"
+}

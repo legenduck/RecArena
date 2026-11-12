@@ -1,0 +1,65 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "block_id": {
+      "maxLength": 160,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+      "title": "Block Id",
+      "type": "string"
+    },
+    "document_visible": {
+      "const": true,
+      "title": "Document Visible",
+      "type": "boolean"
+    },
+    "list_presentation_id": {
+      "anyOf": [
+        {
+          "format": "uuid",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "List Presentation Id"
+    },
+    "placement_id": {
+      "maxLength": 160,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+      "title": "Placement Id",
+      "type": "string"
+    },
+    "result_snapshot_id": {
+      "maxLength": 160,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+      "title": "Result Snapshot Id",
+      "type": "string"
+    },
+    "visible_duration_ms": {
+      "minimum": 1000,
+      "title": "Visible Duration Ms",
+      "type": "number"
+    },
+    "visible_ratio": {
+      "maximum": 1,
+      "minimum": 0.5,
+      "title": "Visible Ratio",
+      "type": "number"
+    }
+  },
+  "required": [
+    "result_snapshot_id",
+    "block_id",
+    "placement_id",
+    "visible_ratio",
+    "visible_duration_ms",
+    "document_visible"
+  ],
+  "title": "ImpressionPayload",
+  "type": "object"
+}

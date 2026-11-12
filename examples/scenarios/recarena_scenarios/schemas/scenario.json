@@ -1,0 +1,44 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "product_type",
+    "situation",
+    "situation_sources",
+    "budget_range"
+  ],
+  "properties": {
+    "product_type": {
+      "type": "string"
+    },
+    "situation": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "situation_sources": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "budget_range": {
+      "anyOf": [
+        {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          }
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  }
+}

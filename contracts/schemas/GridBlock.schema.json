@@ -1,0 +1,66 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "columns": {
+      "default": 4,
+      "maximum": 12,
+      "minimum": 1,
+      "title": "Columns",
+      "type": "integer"
+    },
+    "component": {
+      "const": "grid",
+      "default": "grid",
+      "title": "Component",
+      "type": "string"
+    },
+    "count": {
+      "default": 20,
+      "minimum": 1,
+      "title": "Count",
+      "type": "integer"
+    },
+    "id": {
+      "maxLength": 160,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+      "title": "Id",
+      "type": "string"
+    },
+    "offset": {
+      "default": 0,
+      "minimum": 0,
+      "title": "Offset",
+      "type": "integer"
+    },
+    "source": {
+      "maxLength": 160,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+      "title": "Source",
+      "type": "string"
+    },
+    "title": {
+      "maxLength": 200,
+      "minLength": 1,
+      "title": "Title",
+      "type": "string"
+    },
+    "visibility": {
+      "default": "all_pages",
+      "enum": [
+        "all_pages",
+        "first_page"
+      ],
+      "title": "Visibility",
+      "type": "string"
+    }
+  },
+  "required": [
+    "id",
+    "source",
+    "title"
+  ],
+  "title": "GridBlock",
+  "type": "object"
+}

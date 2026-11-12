@@ -1,0 +1,14 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "max_quantity": {
+      "default": 99,
+      "maximum": 99,
+      "minimum": 1,
+      "title": "Max Quantity",
+      "type": "integer"
+    }
+  },
+  "title": "RunLimits",
+  "type": "object"
+}

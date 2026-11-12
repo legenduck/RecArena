@@ -1,0 +1,30 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "client_request_id": {
+      "format": "uuid",
+      "title": "Client Request Id",
+      "type": "string"
+    },
+    "context_id": {
+      "maxLength": 160,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+      "title": "Context Id",
+      "type": "string"
+    },
+    "query": {
+      "maxLength": 512,
+      "minLength": 1,
+      "title": "Query",
+      "type": "string"
+    }
+  },
+  "required": [
+    "context_id",
+    "query",
+    "client_request_id"
+  ],
+  "title": "SearchRequest",
+  "type": "object"
+}

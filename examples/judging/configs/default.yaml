@@ -1,0 +1,13 @@
+data:
+  threads: 4
+  memory_limit: 4GB
+judging:
+  concurrency: 200
+  repairs: 1
+llm:
+  model: gpt-6-luna
+  reasoning: xhigh
+  max_output_tokens: 16000
+  base_url: https://api.openai.com/v1
+  timeout_seconds: 900
+  network_retries: 3

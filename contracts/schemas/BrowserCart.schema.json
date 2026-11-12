@@ -1,0 +1,157 @@
+{
+  "$defs": {
+    "BrowserCartItem": {
+      "additionalProperties": false,
+      "properties": {
+        "currency": {
+          "pattern": "^[A-Z]{3}$",
+          "title": "Currency",
+          "type": "string"
+        },
+        "image_url": {
+          "title": "Image Url",
+          "type": "string"
+        },
+        "is_available": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Is Available"
+        },
+        "is_purchasable": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Is Purchasable"
+        },
+        "item_id": {
+          "format": "uuid",
+          "title": "Item Id",
+          "type": "string"
+        },
+        "product_id": {
+          "maxLength": 160,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "title": "Product Id",
+          "type": "string"
+        },
+        "quantity": {
+          "maximum": 99,
+          "minimum": 1,
+          "title": "Quantity",
+          "type": "integer"
+        },
+        "selected_options": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "title": "Selected Options",
+          "type": "object"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        },
+        "total_price_minor": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Total Price Minor"
+        },
+        "unit_price_minor": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Unit Price Minor"
+        },
+        "variant_id": {
+          "maxLength": 160,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "title": "Variant Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "product_id",
+        "variant_id",
+        "title",
+        "selected_options",
+        "quantity",
+        "unit_price_minor",
+        "total_price_minor",
+        "currency",
+        "item_id",
+        "image_url"
+      ],
+      "title": "BrowserCartItem",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "items": {
+      "items": {
+        "$ref": "#/$defs/BrowserCartItem"
+      },
+      "title": "Items",
+      "type": "array"
+    },
+    "total_quantity": {
+      "title": "Total Quantity",
+      "type": "integer"
+    },
+    "totals_by_currency": {
+      "additionalProperties": {
+        "anyOf": [
+          {
+            "type": "integer"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "title": "Totals By Currency",
+      "type": "object"
+    },
+    "viewId": {
+      "format": "uuid",
+      "title": "Viewid",
+      "type": "string"
+    }
+  },
+  "required": [
+    "viewId",
+    "items",
+    "total_quantity",
+    "totals_by_currency"
+  ],
+  "title": "BrowserCart",
+  "type": "object"
+}

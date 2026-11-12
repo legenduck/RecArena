@@ -1,0 +1,73 @@
+{
+  "$defs": {
+    "JsonValue": {}
+  },
+  "additionalProperties": false,
+  "properties": {
+    "attributes_override": {
+      "additionalProperties": {
+        "$ref": "#/$defs/JsonValue"
+      },
+      "title": "Attributes Override",
+      "type": "object"
+    },
+    "currency": {
+      "pattern": "^[A-Z]{3}$",
+      "title": "Currency",
+      "type": "string"
+    },
+    "image_urls": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Image Urls",
+      "type": "array"
+    },
+    "is_available": {
+      "title": "Is Available",
+      "type": "boolean"
+    },
+    "is_purchasable": {
+      "title": "Is Purchasable",
+      "type": "boolean"
+    },
+    "option_values": {
+      "additionalProperties": {
+        "type": "string"
+      },
+      "title": "Option Values",
+      "type": "object"
+    },
+    "unit_price_minor": {
+      "anyOf": [
+        {
+          "minimum": 0,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Unit Price Minor"
+    },
+    "variant_id": {
+      "maxLength": 160,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+      "title": "Variant Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "variant_id",
+    "option_values",
+    "attributes_override",
+    "unit_price_minor",
+    "currency",
+    "image_urls",
+    "is_available",
+    "is_purchasable"
+  ],
+  "title": "PublicVariant",
+  "type": "object"
+}

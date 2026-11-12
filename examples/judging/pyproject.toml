@@ -1,0 +1,21 @@
+[build-system]
+requires = ["hatchling==1.27.0"]
+build-backend = "hatchling.build"
+
+[project]
+name = "recarena-judging"
+version = "0.1.0"
+requires-python = ">=3.11,<3.12"
+dependencies = ["duckdb==1.5.6", "jsonschema==4.26.0", "PyYAML==6.0.3", "recarena-llm"]
+
+[project.optional-dependencies]
+llm = ["recarena-llm[api]"]
+
+[project.scripts]
+recarena-judge = "recarena_judging.pipeline:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["recarena_judging"]
+
+[tool.hatch.build.targets.wheel.force-include]
+"configs/default.yaml" = "recarena_judging/default.yaml"

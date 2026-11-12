@@ -1,0 +1,22 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "count": {
+      "minimum": 0,
+      "title": "Count",
+      "type": "integer"
+    },
+    "rating": {
+      "maximum": 5,
+      "minimum": 1,
+      "title": "Rating",
+      "type": "number"
+    }
+  },
+  "required": [
+    "rating",
+    "count"
+  ],
+  "title": "ReviewRatingCount",
+  "type": "object"
+}

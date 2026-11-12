@@ -1,0 +1,14 @@
+{
+  "policy_id": "diversity",
+  "name": "BM25 diversity",
+  "catalog_snapshot_id": "REPLACE_WITH_CATALOG_ID",
+  "index_artifact_id": "REPLACE_WITH_INDEX_ID",
+  "retrieval": {"candidate_k": 200, "k1": 1.2, "b": 0.75},
+  "configuration": {
+    "family": "diversity",
+    "implementation_id": "bm25_bpr_mmr_v1",
+    "base_policy": "relevance",
+    "mmr_relevance_weight": 0.7
+  },
+  "artifact_ids": ["REPLACE_WITH_TFIDF_ARTIFACT_ID"]
+}

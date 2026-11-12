@@ -1,0 +1,37 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "product_id": {
+      "maxLength": 160,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+      "title": "Product Id",
+      "type": "string"
+    },
+    "quantity": {
+      "maximum": 99,
+      "minimum": 1,
+      "title": "Quantity",
+      "type": "integer"
+    },
+    "utility": {
+      "title": "Utility",
+      "type": "number"
+    },
+    "variant_id": {
+      "maxLength": 160,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+      "title": "Variant Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "product_id",
+    "variant_id",
+    "quantity",
+    "utility"
+  ],
+  "title": "UtilityEntry",
+  "type": "object"
+}

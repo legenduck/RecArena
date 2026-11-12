@@ -1,0 +1,17 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "context_id": {
+      "maxLength": 160,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+      "title": "Context Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "context_id"
+  ],
+  "title": "ContextRequest",
+  "type": "object"
+}

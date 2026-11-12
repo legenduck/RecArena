@@ -1,0 +1,36 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "quantity": {
+      "maximum": 99,
+      "minimum": 1,
+      "title": "Quantity",
+      "type": "integer"
+    },
+    "requestKey": {
+      "format": "uuid",
+      "title": "Requestkey",
+      "type": "string"
+    },
+    "variant_id": {
+      "maxLength": 160,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+      "title": "Variant Id",
+      "type": "string"
+    },
+    "viewId": {
+      "format": "uuid",
+      "title": "Viewid",
+      "type": "string"
+    }
+  },
+  "required": [
+    "viewId",
+    "requestKey",
+    "variant_id",
+    "quantity"
+  ],
+  "title": "BrowserSelection",
+  "type": "object"
+}

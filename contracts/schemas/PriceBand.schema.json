@@ -1,0 +1,33 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "max_minor": {
+      "anyOf": [
+        {
+          "minimum": 0,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Max Minor"
+    },
+    "min_minor": {
+      "anyOf": [
+        {
+          "minimum": 0,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Min Minor"
+    }
+  },
+  "title": "PriceBand",
+  "type": "object"
+}

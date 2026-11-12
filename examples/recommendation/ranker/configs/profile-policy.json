@@ -1,0 +1,9 @@
+{
+  "policy_id": "profile",
+  "name": "Profile similarity",
+  "catalog_snapshot_id": "REPLACE_WITH_CATALOG_ID",
+  "index_artifact_id": "REPLACE_WITH_INDEX_ID",
+  "retrieval": {"candidate_k": 200, "k1": 1.2, "b": 0.75},
+  "configuration": {"family": "personalization", "implementation_id": "bm25_profile_tfidf_v1"},
+  "artifact_ids": ["REPLACE_WITH_PROFILE_SCORE_ARTIFACT_ID"]
+}

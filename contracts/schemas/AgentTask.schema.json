@@ -1,0 +1,14 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "goal": {
+      "title": "Goal",
+      "type": "string"
+    }
+  },
+  "required": [
+    "goal"
+  ],
+  "title": "AgentTask",
+  "type": "object"
+}

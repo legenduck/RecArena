@@ -1,0 +1,9 @@
+{
+  "policy_id": "pop",
+  "name": "pop",
+  "catalog_snapshot_id": "REPLACE_WITH_CATALOG_ID",
+  "index_artifact_id": "REPLACE_WITH_INDEX_ID",
+  "retrieval": {"candidate_k": 200, "k1": 1.2, "b": 0.75},
+  "configuration": {"family": "popularity", "implementation_id": "pop", "delta_t": 30, "tau": "2022-07-13T02:46:01.348Z"},
+  "artifact_ids": ["REPLACE_WITH_REVIEW_TIMESTAMP_ARTIFACT_ID"]
+}

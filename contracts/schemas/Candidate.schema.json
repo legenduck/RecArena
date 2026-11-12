@@ -1,0 +1,33 @@
+{
+  "$defs": {
+    "JsonValue": {}
+  },
+  "additionalProperties": false,
+  "properties": {
+    "metadata": {
+      "additionalProperties": {
+        "$ref": "#/$defs/JsonValue"
+      },
+      "title": "Metadata",
+      "type": "object"
+    },
+    "product_id": {
+      "maxLength": 160,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+      "title": "Product Id",
+      "type": "string"
+    },
+    "retrieval_rank": {
+      "minimum": 1,
+      "title": "Retrieval Rank",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "product_id",
+    "retrieval_rank"
+  ],
+  "title": "Candidate",
+  "type": "object"
+}

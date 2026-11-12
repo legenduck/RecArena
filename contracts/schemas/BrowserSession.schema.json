@@ -1,0 +1,258 @@
+{
+  "$defs": {
+    "BrowserReceipt": {
+      "additionalProperties": false,
+      "properties": {
+        "currency": {
+          "anyOf": [
+            {
+              "pattern": "^[A-Z]{3}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Currency"
+        },
+        "items": {
+          "items": {
+            "$ref": "#/$defs/BrowserReceiptItem"
+          },
+          "title": "Items",
+          "type": "array"
+        },
+        "product_id": {
+          "anyOf": [
+            {
+              "maxLength": 160,
+              "minLength": 1,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Product Id"
+        },
+        "quantity": {
+          "anyOf": [
+            {
+              "maximum": 99,
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Quantity"
+        },
+        "selected_options": {
+          "anyOf": [
+            {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Selected Options"
+        },
+        "total_price_minor": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Total Price Minor"
+        },
+        "total_quantity": {
+          "title": "Total Quantity",
+          "type": "integer"
+        },
+        "totals_by_currency": {
+          "additionalProperties": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "title": "Totals By Currency",
+          "type": "object"
+        },
+        "unit_price_minor": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Unit Price Minor"
+        }
+      },
+      "required": [
+        "items",
+        "total_quantity",
+        "totals_by_currency",
+        "total_price_minor",
+        "currency",
+        "product_id",
+        "selected_options",
+        "quantity",
+        "unit_price_minor"
+      ],
+      "title": "BrowserReceipt",
+      "type": "object"
+    },
+    "BrowserReceiptItem": {
+      "additionalProperties": false,
+      "properties": {
+        "currency": {
+          "pattern": "^[A-Z]{3}$",
+          "title": "Currency",
+          "type": "string"
+        },
+        "product_id": {
+          "maxLength": 160,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "title": "Product Id",
+          "type": "string"
+        },
+        "quantity": {
+          "maximum": 99,
+          "minimum": 1,
+          "title": "Quantity",
+          "type": "integer"
+        },
+        "selected_options": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "title": "Selected Options",
+          "type": "object"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        },
+        "total_price_minor": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Total Price Minor"
+        },
+        "unit_price_minor": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Unit Price Minor"
+        },
+        "variant_id": {
+          "maxLength": 160,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "title": "Variant Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "product_id",
+        "variant_id",
+        "title",
+        "selected_options",
+        "quantity",
+        "unit_price_minor",
+        "total_price_minor",
+        "currency"
+      ],
+      "title": "BrowserReceiptItem",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "cart_quantity": {
+      "title": "Cart Quantity",
+      "type": "integer"
+    },
+    "max_quantity": {
+      "maximum": 99,
+      "minimum": 1,
+      "title": "Max Quantity",
+      "type": "integer"
+    },
+    "purchase": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/BrowserReceipt"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "show_abandon": {
+      "title": "Show Abandon",
+      "type": "boolean"
+    },
+    "show_cart": {
+      "title": "Show Cart",
+      "type": "boolean"
+    },
+    "status": {
+      "enum": [
+        "active",
+        "purchased",
+        "abandoned",
+        "ended"
+      ],
+      "title": "Status",
+      "type": "string"
+    },
+    "viewId": {
+      "format": "uuid",
+      "title": "Viewid",
+      "type": "string"
+    }
+  },
+  "required": [
+    "viewId",
+    "status",
+    "max_quantity",
+    "show_abandon",
+    "show_cart",
+    "cart_quantity",
+    "purchase"
+  ],
+  "title": "BrowserSession",
+  "type": "object"
+}

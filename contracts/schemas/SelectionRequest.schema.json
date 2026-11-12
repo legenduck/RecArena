@@ -1,0 +1,45 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "client_request_id": {
+      "anyOf": [
+        {
+          "format": "uuid",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Client Request Id"
+    },
+    "context_id": {
+      "maxLength": 160,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+      "title": "Context Id",
+      "type": "string"
+    },
+    "quantity": {
+      "maximum": 99,
+      "minimum": 1,
+      "title": "Quantity",
+      "type": "integer"
+    },
+    "variant_id": {
+      "maxLength": 160,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+      "title": "Variant Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "context_id",
+    "variant_id",
+    "quantity"
+  ],
+  "title": "SelectionRequest",
+  "type": "object"
+}

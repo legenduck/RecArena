@@ -1,0 +1,75 @@
+{
+  "$defs": {
+    "PriceBand": {
+      "additionalProperties": false,
+      "properties": {
+        "max_minor": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Max Minor"
+        },
+        "min_minor": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Min Minor"
+        }
+      },
+      "title": "PriceBand",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "bands": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/PriceBand"
+      },
+      "title": "Bands",
+      "type": "array"
+    },
+    "currency": {
+      "pattern": "^[A-Z]{3}$",
+      "title": "Currency",
+      "type": "string"
+    },
+    "max_minor": {
+      "minimum": 0,
+      "title": "Max Minor",
+      "type": "integer"
+    },
+    "max_open_ended": {
+      "default": false,
+      "title": "Max Open Ended",
+      "type": "boolean"
+    },
+    "min_minor": {
+      "minimum": 0,
+      "title": "Min Minor",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "currency",
+    "min_minor",
+    "max_minor"
+  ],
+  "title": "PriceFilterOptions",
+  "type": "object"
+}

@@ -1,0 +1,5 @@
+model: BPR
+training:
+  epochs: 20
+  stopping_step: 5
+  train_batch_size: 32

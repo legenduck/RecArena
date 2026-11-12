@@ -1,0 +1,15 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "viewId": {
+      "format": "uuid",
+      "title": "Viewid",
+      "type": "string"
+    }
+  },
+  "required": [
+    "viewId"
+  ],
+  "title": "ViewRequest",
+  "type": "object"
+}

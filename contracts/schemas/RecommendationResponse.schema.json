@@ -1,0 +1,279 @@
+{
+  "$defs": {
+    "Candidate": {
+      "additionalProperties": false,
+      "properties": {
+        "metadata": {
+          "additionalProperties": {
+            "$ref": "#/$defs/JsonValue"
+          },
+          "title": "Metadata",
+          "type": "object"
+        },
+        "product_id": {
+          "maxLength": 160,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "title": "Product Id",
+          "type": "string"
+        },
+        "retrieval_rank": {
+          "minimum": 1,
+          "title": "Retrieval Rank",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "product_id",
+        "retrieval_rank"
+      ],
+      "title": "Candidate",
+      "type": "object"
+    },
+    "CandidateSet": {
+      "additionalProperties": false,
+      "properties": {
+        "candidate_scope": {
+          "maxLength": 160,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "title": "Candidate Scope",
+          "type": "string"
+        },
+        "candidate_set_id": {
+          "maxLength": 160,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "title": "Candidate Set Id",
+          "type": "string"
+        },
+        "candidates": {
+          "items": {
+            "$ref": "#/$defs/Candidate"
+          },
+          "title": "Candidates",
+          "type": "array"
+        },
+        "catalog_snapshot_id": {
+          "maxLength": 160,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "title": "Catalog Snapshot Id",
+          "type": "string"
+        },
+        "metadata": {
+          "additionalProperties": {
+            "$ref": "#/$defs/JsonValue"
+          },
+          "title": "Metadata",
+          "type": "object"
+        },
+        "query_normalized": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Query Normalized",
+          "type": "string"
+        },
+        "query_raw": {
+          "title": "Query Raw",
+          "type": "string"
+        }
+      },
+      "required": [
+        "candidate_set_id",
+        "catalog_snapshot_id",
+        "candidate_scope",
+        "query_raw",
+        "query_normalized",
+        "candidates"
+      ],
+      "title": "CandidateSet",
+      "type": "object"
+    },
+    "JsonValue": {},
+    "PolicyConfig": {
+      "additionalProperties": false,
+      "description": "A pinned service policy. Its implementation and preparation are provider-owned.",
+      "properties": {
+        "candidate_limit": {
+          "minimum": 1,
+          "title": "Candidate Limit",
+          "type": "integer"
+        },
+        "candidate_scope": {
+          "maxLength": 160,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "title": "Candidate Scope",
+          "type": "string"
+        },
+        "family": {
+          "maxLength": 160,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "title": "Family",
+          "type": "string"
+        },
+        "policy_id": {
+          "maxLength": 160,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "title": "Policy Id",
+          "type": "string"
+        },
+        "service_id": {
+          "default": "default",
+          "maxLength": 160,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "title": "Service Id",
+          "type": "string"
+        },
+        "version": {
+          "maxLength": 160,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "title": "Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "family",
+        "policy_id",
+        "version",
+        "candidate_scope",
+        "candidate_limit"
+      ],
+      "title": "PolicyConfig",
+      "type": "object"
+    },
+    "RankedItem": {
+      "additionalProperties": false,
+      "properties": {
+        "final_rank": {
+          "minimum": 1,
+          "title": "Final Rank",
+          "type": "integer"
+        },
+        "final_score": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Final Score"
+        },
+        "product_id": {
+          "maxLength": 160,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "title": "Product Id",
+          "type": "string"
+        },
+        "retrieval_rank": {
+          "minimum": 1,
+          "title": "Retrieval Rank",
+          "type": "integer"
+        },
+        "score_components": {
+          "additionalProperties": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "title": "Score Components",
+          "type": "object"
+        },
+        "signal_missing_flags": {
+          "additionalProperties": {
+            "type": "boolean"
+          },
+          "title": "Signal Missing Flags",
+          "type": "object"
+        }
+      },
+      "required": [
+        "product_id",
+        "retrieval_rank",
+        "final_rank"
+      ],
+      "title": "RankedItem",
+      "type": "object"
+    },
+    "RankedResult": {
+      "additionalProperties": false,
+      "properties": {
+        "candidate_set_id": {
+          "maxLength": 160,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "title": "Candidate Set Id",
+          "type": "string"
+        },
+        "diagnostics": {
+          "additionalProperties": {
+            "$ref": "#/$defs/JsonValue"
+          },
+          "title": "Diagnostics",
+          "type": "object"
+        },
+        "policy_version_id": {
+          "maxLength": 160,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "title": "Policy Version Id",
+          "type": "string"
+        },
+        "provenance": {
+          "additionalProperties": {
+            "$ref": "#/$defs/JsonValue"
+          },
+          "title": "Provenance",
+          "type": "object"
+        },
+        "ranked_items": {
+          "items": {
+            "$ref": "#/$defs/RankedItem"
+          },
+          "title": "Ranked Items",
+          "type": "array"
+        }
+      },
+      "required": [
+        "candidate_set_id",
+        "policy_version_id",
+        "ranked_items"
+      ],
+      "title": "RankedResult",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "candidates": {
+      "$ref": "#/$defs/CandidateSet"
+    },
+    "policy": {
+      "$ref": "#/$defs/PolicyConfig"
+    },
+    "ranking": {
+      "$ref": "#/$defs/RankedResult"
+    }
+  },
+  "required": [
+    "policy",
+    "candidates",
+    "ranking"
+  ],
+  "title": "RecommendationResponse",
+  "type": "object"
+}

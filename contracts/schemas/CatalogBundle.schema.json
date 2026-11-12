@@ -1,0 +1,738 @@
+{
+  "$defs": {
+    "Constraint": {
+      "additionalProperties": false,
+      "properties": {
+        "field": {
+          "title": "Field",
+          "type": "string"
+        },
+        "op": {
+          "enum": [
+            "eq",
+            "in",
+            "contains",
+            "gte",
+            "lte",
+            "between"
+          ],
+          "title": "Op",
+          "type": "string"
+        },
+        "value": {
+          "$ref": "#/$defs/JsonValue"
+        }
+      },
+      "required": [
+        "field",
+        "op",
+        "value"
+      ],
+      "title": "Constraint",
+      "type": "object"
+    },
+    "Interaction": {
+      "additionalProperties": false,
+      "properties": {
+        "history_snapshot_id": {
+          "maxLength": 160,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "title": "History Snapshot Id",
+          "type": "string"
+        },
+        "interaction_type": {
+          "const": "review_observed",
+          "default": "review_observed",
+          "title": "Interaction Type",
+          "type": "string"
+        },
+        "product_id": {
+          "maxLength": 160,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "title": "Product Id",
+          "type": "string"
+        },
+        "rating": {
+          "anyOf": [
+            {
+              "maximum": 5,
+              "minimum": 1,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Rating"
+        },
+        "source_asin": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Source Asin"
+        },
+        "timestamp_utc": {
+          "format": "date-time",
+          "title": "Timestamp Utc",
+          "type": "string"
+        },
+        "user_id": {
+          "maxLength": 160,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "title": "User Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "history_snapshot_id",
+        "user_id",
+        "product_id",
+        "timestamp_utc"
+      ],
+      "title": "Interaction",
+      "type": "object"
+    },
+    "JsonValue": {},
+    "Product": {
+      "additionalProperties": false,
+      "properties": {
+        "attributes": {
+          "additionalProperties": {
+            "$ref": "#/$defs/JsonValue"
+          },
+          "title": "Attributes",
+          "type": "object"
+        },
+        "brand": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Brand"
+        },
+        "categories": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "title": "Categories",
+          "type": "array"
+        },
+        "currency": {
+          "pattern": "^[A-Z]{3}$",
+          "title": "Currency",
+          "type": "string"
+        },
+        "dataset_snapshot_id": {
+          "maxLength": 160,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "title": "Dataset Snapshot Id",
+          "type": "string"
+        },
+        "description": {
+          "default": "",
+          "title": "Description",
+          "type": "string"
+        },
+        "display_rating": {
+          "anyOf": [
+            {
+              "maximum": 5,
+              "minimum": 1,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Display Rating"
+        },
+        "display_review_count": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Display Review Count",
+          "type": "integer"
+        },
+        "features": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "title": "Features",
+          "type": "array"
+        },
+        "image_asset_ids": {
+          "default": [],
+          "items": {
+            "maxLength": 160,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+            "type": "string"
+          },
+          "title": "Image Asset Ids",
+          "type": "array"
+        },
+        "image_urls": {
+          "default": [],
+          "items": {
+            "format": "uri",
+            "pattern": "^https?://",
+            "type": "string"
+          },
+          "title": "Image Urls",
+          "type": "array"
+        },
+        "product_id": {
+          "maxLength": 160,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "title": "Product Id",
+          "type": "string"
+        },
+        "product_status": {
+          "default": "active",
+          "enum": [
+            "active",
+            "excluded"
+          ],
+          "title": "Product Status",
+          "type": "string"
+        },
+        "source_parent_asin": {
+          "title": "Source Parent Asin",
+          "type": "string"
+        },
+        "source_provenance": {
+          "additionalProperties": {
+            "$ref": "#/$defs/JsonValue"
+          },
+          "title": "Source Provenance",
+          "type": "object"
+        },
+        "title": {
+          "minLength": 1,
+          "title": "Title",
+          "type": "string"
+        }
+      },
+      "required": [
+        "dataset_snapshot_id",
+        "product_id",
+        "source_parent_asin",
+        "title",
+        "currency",
+        "source_provenance"
+      ],
+      "title": "Product",
+      "type": "object"
+    },
+    "Review": {
+      "additionalProperties": false,
+      "properties": {
+        "body": {
+          "title": "Body",
+          "type": "string"
+        },
+        "display_author_alias": {
+          "title": "Display Author Alias",
+          "type": "string"
+        },
+        "helpful_votes": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Helpful Votes"
+        },
+        "product_id": {
+          "maxLength": 160,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "title": "Product Id",
+          "type": "string"
+        },
+        "rating": {
+          "maximum": 5,
+          "minimum": 1,
+          "title": "Rating",
+          "type": "number"
+        },
+        "review_id": {
+          "maxLength": 160,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "title": "Review Id",
+          "type": "string"
+        },
+        "review_snapshot_id": {
+          "maxLength": 160,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "title": "Review Snapshot Id",
+          "type": "string"
+        },
+        "source_asin": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Source Asin"
+        },
+        "source_provenance": {
+          "additionalProperties": {
+            "$ref": "#/$defs/JsonValue"
+          },
+          "title": "Source Provenance",
+          "type": "object"
+        },
+        "source_user_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Source User Id"
+        },
+        "timestamp_utc": {
+          "format": "date-time",
+          "title": "Timestamp Utc",
+          "type": "string"
+        },
+        "title": {
+          "default": "",
+          "title": "Title",
+          "type": "string"
+        },
+        "verified_purchase": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Verified Purchase"
+        }
+      },
+      "required": [
+        "review_snapshot_id",
+        "review_id",
+        "product_id",
+        "display_author_alias",
+        "rating",
+        "body",
+        "timestamp_utc",
+        "source_provenance"
+      ],
+      "title": "Review",
+      "type": "object"
+    },
+    "TaskVersion": {
+      "additionalProperties": false,
+      "properties": {
+        "agent_goal": {
+          "minLength": 1,
+          "title": "Agent Goal",
+          "type": "string"
+        },
+        "catalog_snapshot_id": {
+          "maxLength": 160,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "title": "Catalog Snapshot Id",
+          "type": "string"
+        },
+        "optional_utility_spec": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/UtilitySpec"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "private_constraints": {
+          "items": {
+            "$ref": "#/$defs/Constraint"
+          },
+          "title": "Private Constraints",
+          "type": "array"
+        },
+        "provenance": {
+          "additionalProperties": {
+            "$ref": "#/$defs/JsonValue"
+          },
+          "title": "Provenance",
+          "type": "object"
+        },
+        "task_id": {
+          "maxLength": 160,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "title": "Task Id",
+          "type": "string"
+        },
+        "validation_status": {
+          "default": "DRAFT",
+          "enum": [
+            "DRAFT",
+            "VALIDATED"
+          ],
+          "title": "Validation Status",
+          "type": "string"
+        },
+        "version": {
+          "minimum": 1,
+          "title": "Version",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "task_id",
+        "version",
+        "agent_goal",
+        "private_constraints",
+        "catalog_snapshot_id",
+        "provenance"
+      ],
+      "title": "TaskVersion",
+      "type": "object"
+    },
+    "UtilityEntry": {
+      "additionalProperties": false,
+      "properties": {
+        "product_id": {
+          "maxLength": 160,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "title": "Product Id",
+          "type": "string"
+        },
+        "quantity": {
+          "maximum": 99,
+          "minimum": 1,
+          "title": "Quantity",
+          "type": "integer"
+        },
+        "utility": {
+          "title": "Utility",
+          "type": "number"
+        },
+        "variant_id": {
+          "maxLength": 160,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "title": "Variant Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "product_id",
+        "variant_id",
+        "quantity",
+        "utility"
+      ],
+      "title": "UtilityEntry",
+      "type": "object"
+    },
+    "UtilitySpec": {
+      "additionalProperties": false,
+      "properties": {
+        "abandonment_utility": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Abandonment Utility"
+        },
+        "entries": {
+          "items": {
+            "$ref": "#/$defs/UtilityEntry"
+          },
+          "minItems": 1,
+          "title": "Entries",
+          "type": "array"
+        },
+        "kind": {
+          "const": "explicit_table",
+          "default": "explicit_table",
+          "title": "Kind",
+          "type": "string"
+        },
+        "quantity_domain": {
+          "items": {
+            "maximum": 99,
+            "minimum": 1,
+            "type": "integer"
+          },
+          "minItems": 1,
+          "title": "Quantity Domain",
+          "type": "array"
+        },
+        "reference_scope": {
+          "enum": [
+            "entire_catalog",
+            "specified_eligible_set"
+          ],
+          "title": "Reference Scope",
+          "type": "string"
+        }
+      },
+      "required": [
+        "reference_scope",
+        "quantity_domain",
+        "entries"
+      ],
+      "title": "UtilitySpec",
+      "type": "object"
+    },
+    "Variant": {
+      "additionalProperties": false,
+      "properties": {
+        "attributes_override": {
+          "additionalProperties": {
+            "$ref": "#/$defs/JsonValue"
+          },
+          "title": "Attributes Override",
+          "type": "object"
+        },
+        "currency": {
+          "pattern": "^[A-Z]{3}$",
+          "title": "Currency",
+          "type": "string"
+        },
+        "dataset_snapshot_id": {
+          "maxLength": 160,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "title": "Dataset Snapshot Id",
+          "type": "string"
+        },
+        "image_asset_ids": {
+          "default": [],
+          "items": {
+            "maxLength": 160,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+            "type": "string"
+          },
+          "title": "Image Asset Ids",
+          "type": "array"
+        },
+        "image_urls": {
+          "default": [],
+          "items": {
+            "format": "uri",
+            "pattern": "^https?://",
+            "type": "string"
+          },
+          "title": "Image Urls",
+          "type": "array"
+        },
+        "is_available": {
+          "title": "Is Available",
+          "type": "boolean"
+        },
+        "is_purchasable": {
+          "title": "Is Purchasable",
+          "type": "boolean"
+        },
+        "option_values": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "title": "Option Values",
+          "type": "object"
+        },
+        "product_id": {
+          "maxLength": 160,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "title": "Product Id",
+          "type": "string"
+        },
+        "provenance": {
+          "additionalProperties": {
+            "$ref": "#/$defs/JsonValue"
+          },
+          "title": "Provenance",
+          "type": "object"
+        },
+        "source_asin": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Source Asin"
+        },
+        "unit_price_minor": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Unit Price Minor"
+        },
+        "variant_id": {
+          "maxLength": 160,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "title": "Variant Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "dataset_snapshot_id",
+        "variant_id",
+        "product_id",
+        "currency",
+        "is_available",
+        "is_purchasable",
+        "provenance"
+      ],
+      "title": "Variant",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "dataset_snapshot_id": {
+      "maxLength": 160,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+      "title": "Dataset Snapshot Id",
+      "type": "string"
+    },
+    "history": {
+      "items": {
+        "$ref": "#/$defs/Interaction"
+      },
+      "title": "History",
+      "type": "array"
+    },
+    "history_snapshot_id": {
+      "maxLength": 160,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+      "title": "History Snapshot Id",
+      "type": "string"
+    },
+    "products": {
+      "items": {
+        "$ref": "#/$defs/Product"
+      },
+      "title": "Products",
+      "type": "array"
+    },
+    "review_cutoff": {
+      "anyOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Review Cutoff"
+    },
+    "review_snapshot_id": {
+      "maxLength": 160,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+      "title": "Review Snapshot Id",
+      "type": "string"
+    },
+    "reviews": {
+      "items": {
+        "$ref": "#/$defs/Review"
+      },
+      "title": "Reviews",
+      "type": "array"
+    },
+    "schema_version": {
+      "const": "1.0",
+      "default": "1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "tasks": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/TaskVersion"
+      },
+      "title": "Tasks",
+      "type": "array"
+    },
+    "variants": {
+      "items": {
+        "$ref": "#/$defs/Variant"
+      },
+      "title": "Variants",
+      "type": "array"
+    }
+  },
+  "required": [
+    "dataset_snapshot_id",
+    "review_snapshot_id",
+    "history_snapshot_id",
+    "products",
+    "variants",
+    "reviews",
+    "history"
+  ],
+  "title": "CatalogBundle",
+  "type": "object"
+}

@@ -1,0 +1,17 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "shop_session_id": {
+      "maxLength": 160,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+      "title": "Shop Session Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "shop_session_id"
+  ],
+  "title": "PreparedRunStart",
+  "type": "object"
+}

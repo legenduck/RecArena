@@ -1,0 +1,41 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "default_environment_id": {
+      "anyOf": [
+        {
+          "maxLength": 160,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Default Environment Id"
+    },
+    "policies": {
+      "patternProperties": {
+        "^[A-Za-z0-9][A-Za-z0-9_.:-]*$": {
+          "maxLength": 160,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "type": "string"
+        }
+      },
+      "propertyNames": {
+        "maxLength": 160,
+        "minLength": 1
+      },
+      "title": "Policies",
+      "type": "object"
+    }
+  },
+  "required": [
+    "default_environment_id",
+    "policies"
+  ],
+  "title": "SiteSettingsRequest",
+  "type": "object"
+}

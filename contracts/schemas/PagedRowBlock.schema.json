@@ -1,0 +1,65 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "component": {
+      "const": "paged_row",
+      "default": "paged_row",
+      "title": "Component",
+      "type": "string"
+    },
+    "id": {
+      "maxLength": 160,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+      "title": "Id",
+      "type": "string"
+    },
+    "offset": {
+      "default": 0,
+      "minimum": 0,
+      "title": "Offset",
+      "type": "integer"
+    },
+    "source": {
+      "maxLength": 160,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+      "title": "Source",
+      "type": "string"
+    },
+    "title": {
+      "maxLength": 200,
+      "minLength": 1,
+      "title": "Title",
+      "type": "string"
+    },
+    "total_count": {
+      "default": 20,
+      "minimum": 1,
+      "title": "Total Count",
+      "type": "integer"
+    },
+    "visibility": {
+      "default": "first_page",
+      "enum": [
+        "all_pages",
+        "first_page"
+      ],
+      "title": "Visibility",
+      "type": "string"
+    },
+    "visible_count": {
+      "default": 5,
+      "minimum": 1,
+      "title": "Visible Count",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "id",
+    "source",
+    "title"
+  ],
+  "title": "PagedRowBlock",
+  "type": "object"
+}

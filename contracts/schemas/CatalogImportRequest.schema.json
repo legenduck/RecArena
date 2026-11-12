@@ -1,0 +1,15 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "bundle_path": {
+      "minLength": 1,
+      "title": "Bundle Path",
+      "type": "string"
+    }
+  },
+  "required": [
+    "bundle_path"
+  ],
+  "title": "CatalogImportRequest",
+  "type": "object"
+}

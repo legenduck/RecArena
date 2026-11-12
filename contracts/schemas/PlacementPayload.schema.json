@@ -1,0 +1,46 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "block_id": {
+      "maxLength": 160,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+      "title": "Block Id",
+      "type": "string"
+    },
+    "list_presentation_id": {
+      "anyOf": [
+        {
+          "format": "uuid",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "List Presentation Id"
+    },
+    "placement_id": {
+      "maxLength": 160,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+      "title": "Placement Id",
+      "type": "string"
+    },
+    "result_snapshot_id": {
+      "maxLength": 160,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+      "title": "Result Snapshot Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "result_snapshot_id",
+    "block_id",
+    "placement_id"
+  ],
+  "title": "PlacementPayload",
+  "type": "object"
+}

@@ -1,0 +1,78 @@
+{
+  "$defs": {
+    "PresentedItem": {
+      "additionalProperties": false,
+      "properties": {
+        "placement_id": {
+          "maxLength": 160,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "title": "Placement Id",
+          "type": "string"
+        },
+        "product_id": {
+          "maxLength": 160,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "title": "Product Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "product_id",
+        "placement_id"
+      ],
+      "title": "PresentedItem",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "block_id": {
+      "maxLength": 160,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+      "title": "Block Id",
+      "type": "string"
+    },
+    "items": {
+      "items": {
+        "$ref": "#/$defs/PresentedItem"
+      },
+      "title": "Items",
+      "type": "array"
+    },
+    "list_presentation_id": {
+      "format": "uuid",
+      "title": "List Presentation Id",
+      "type": "string"
+    },
+    "main_page": {
+      "minimum": 1,
+      "title": "Main Page",
+      "type": "integer"
+    },
+    "result_snapshot_id": {
+      "maxLength": 160,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+      "title": "Result Snapshot Id",
+      "type": "string"
+    },
+    "section_page": {
+      "minimum": 1,
+      "title": "Section Page",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "result_snapshot_id",
+    "block_id",
+    "list_presentation_id",
+    "main_page",
+    "section_page",
+    "items"
+  ],
+  "title": "ListPresentationPayload",
+  "type": "object"
+}

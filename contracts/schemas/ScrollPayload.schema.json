@@ -1,0 +1,33 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "scroll_x": {
+      "minimum": 0,
+      "title": "Scroll X",
+      "type": "number"
+    },
+    "scroll_y": {
+      "minimum": 0,
+      "title": "Scroll Y",
+      "type": "number"
+    },
+    "viewport_height": {
+      "minimum": 1,
+      "title": "Viewport Height",
+      "type": "integer"
+    },
+    "viewport_width": {
+      "minimum": 1,
+      "title": "Viewport Width",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "scroll_x",
+    "scroll_y",
+    "viewport_width",
+    "viewport_height"
+  ],
+  "title": "ScrollPayload",
+  "type": "object"
+}

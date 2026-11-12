@@ -1,0 +1,19 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "reason": {
+      "default": "researcher_end",
+      "enum": [
+        "researcher_end",
+        "agent_stop",
+        "budget_exhausted",
+        "runner_error",
+        "administrator_cancel"
+      ],
+      "title": "Reason",
+      "type": "string"
+    }
+  },
+  "title": "SessionEnd",
+  "type": "object"
+}

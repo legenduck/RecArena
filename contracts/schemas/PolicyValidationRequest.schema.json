@@ -1,0 +1,113 @@
+{
+  "$defs": {
+    "PolicyConfig": {
+      "additionalProperties": false,
+      "description": "A pinned service policy. Its implementation and preparation are provider-owned.",
+      "properties": {
+        "candidate_limit": {
+          "minimum": 1,
+          "title": "Candidate Limit",
+          "type": "integer"
+        },
+        "candidate_scope": {
+          "maxLength": 160,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "title": "Candidate Scope",
+          "type": "string"
+        },
+        "family": {
+          "maxLength": 160,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "title": "Family",
+          "type": "string"
+        },
+        "policy_id": {
+          "maxLength": 160,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "title": "Policy Id",
+          "type": "string"
+        },
+        "service_id": {
+          "default": "default",
+          "maxLength": 160,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "title": "Service Id",
+          "type": "string"
+        },
+        "version": {
+          "maxLength": 160,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "title": "Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "family",
+        "policy_id",
+        "version",
+        "candidate_scope",
+        "candidate_limit"
+      ],
+      "title": "PolicyConfig",
+      "type": "object"
+    },
+    "UserContext": {
+      "additionalProperties": false,
+      "properties": {
+        "history_snapshot_id": {
+          "maxLength": 160,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "title": "History Snapshot Id",
+          "type": "string"
+        },
+        "user_id": {
+          "maxLength": 160,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "title": "User Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "user_id",
+        "history_snapshot_id"
+      ],
+      "title": "UserContext",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "catalog_snapshot_id": {
+      "maxLength": 160,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+      "title": "Catalog Snapshot Id",
+      "type": "string"
+    },
+    "policy": {
+      "$ref": "#/$defs/PolicyConfig"
+    },
+    "strict_user": {
+      "default": true,
+      "title": "Strict User",
+      "type": "boolean"
+    },
+    "user": {
+      "$ref": "#/$defs/UserContext"
+    }
+  },
+  "required": [
+    "catalog_snapshot_id",
+    "user",
+    "policy"
+  ],
+  "title": "PolicyValidationRequest",
+  "type": "object"
+}

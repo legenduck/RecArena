@@ -1,0 +1,25 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "placement_id": {
+      "maxLength": 160,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+      "title": "Placement Id",
+      "type": "string"
+    },
+    "product_id": {
+      "maxLength": 160,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+      "title": "Product Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "product_id",
+    "placement_id"
+  ],
+  "title": "PresentedItem",
+  "type": "object"
+}

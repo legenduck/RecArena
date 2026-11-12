@@ -1,0 +1,26 @@
+[build-system]
+requires = ["hatchling==1.27.0"]
+build-backend = "hatchling.build"
+
+[project]
+name = "recarena-platform"
+version = "0.1.0"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+  "fastapi==0.128.0",
+  "uvicorn==0.40.0",
+  "SQLAlchemy==2.0.40",
+  "alembic==1.15.2",
+  "psycopg[binary]==3.2.6",
+  "httpx==0.28.1",
+  "recarena-contracts",
+]
+
+[dependency-groups]
+dev = ["pytest==8.3.5", "httpx==0.28.1"]
+
+[tool.uv]
+default-groups = []
+
+[tool.uv.sources]
+recarena-contracts = { path = "../contracts", editable = true }

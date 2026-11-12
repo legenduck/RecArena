@@ -1,0 +1,35 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "offset": {
+      "minimum": 0,
+      "title": "Offset",
+      "type": "integer"
+    },
+    "product_id": {
+      "maxLength": 160,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+      "title": "Product Id",
+      "type": "string"
+    },
+    "review_ids": {
+      "items": {
+        "maxLength": 160,
+        "minLength": 1,
+        "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+        "type": "string"
+      },
+      "maxItems": 50,
+      "title": "Review Ids",
+      "type": "array"
+    }
+  },
+  "required": [
+    "product_id",
+    "offset",
+    "review_ids"
+  ],
+  "title": "ReviewDisplayPayload",
+  "type": "object"
+}

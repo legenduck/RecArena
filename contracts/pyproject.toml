@@ -1,0 +1,18 @@
+[build-system]
+requires = ["hatchling==1.27.0"]
+build-backend = "hatchling.build"
+
+[project]
+name = "recarena-contracts"
+version = "0.1.0"
+requires-python = ">=3.10,<3.13"
+dependencies = [
+  "pydantic==2.12.5",
+  "PyYAML==6.0.3"
+]
+
+[dependency-groups]
+dev = ["pytest==8.3.5", "httpx==0.28.1"]
+
+[tool.uv]
+default-groups = []

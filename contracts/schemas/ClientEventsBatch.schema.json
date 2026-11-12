@@ -1,0 +1,115 @@
+{
+  "$defs": {
+    "ClientEvent": {
+      "additionalProperties": false,
+      "properties": {
+        "client_sequence": {
+          "minimum": 0,
+          "title": "Client Sequence",
+          "type": "integer"
+        },
+        "context_id": {
+          "maxLength": 160,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "title": "Context Id",
+          "type": "string"
+        },
+        "event_id": {
+          "format": "uuid",
+          "title": "Event Id",
+          "type": "string"
+        },
+        "event_type": {
+          "enum": [
+            "page_viewed",
+            "card_rendered",
+            "card_impression",
+            "product_clicked",
+            "result_page_changed",
+            "section_page_changed",
+            "scroll_sampled",
+            "review_section_entered",
+            "review_expanded",
+            "item_list_rendered",
+            "reviews_rendered"
+          ],
+          "title": "Event Type",
+          "type": "string"
+        },
+        "occurred_at": {
+          "format": "date-time",
+          "title": "Occurred At",
+          "type": "string"
+        },
+        "page_instance_id": {
+          "format": "uuid",
+          "title": "Page Instance Id",
+          "type": "string"
+        },
+        "payload": {
+          "additionalProperties": {
+            "$ref": "#/$defs/JsonValue"
+          },
+          "title": "Payload",
+          "type": "object"
+        },
+        "recording_method": {
+          "anyOf": [
+            {
+              "const": "rendered_list",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Recording Method"
+        },
+        "view_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "View Id"
+        }
+      },
+      "required": [
+        "context_id",
+        "event_id",
+        "event_type",
+        "occurred_at",
+        "page_instance_id",
+        "client_sequence",
+        "payload"
+      ],
+      "title": "ClientEvent",
+      "type": "object"
+    },
+    "JsonValue": {}
+  },
+  "additionalProperties": false,
+  "properties": {
+    "events": {
+      "items": {
+        "$ref": "#/$defs/ClientEvent"
+      },
+      "maxItems": 100,
+      "minItems": 1,
+      "title": "Events",
+      "type": "array"
+    }
+  },
+  "required": [
+    "events"
+  ],
+  "title": "ClientEventsBatch",
+  "type": "object"
+}

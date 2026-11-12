@@ -1,0 +1,34 @@
+{
+  "$defs": {
+    "JsonValue": {}
+  },
+  "additionalProperties": false,
+  "properties": {
+    "field": {
+      "title": "Field",
+      "type": "string"
+    },
+    "op": {
+      "enum": [
+        "eq",
+        "in",
+        "contains",
+        "gte",
+        "lte",
+        "between"
+      ],
+      "title": "Op",
+      "type": "string"
+    },
+    "value": {
+      "$ref": "#/$defs/JsonValue"
+    }
+  },
+  "required": [
+    "field",
+    "op",
+    "value"
+  ],
+  "title": "Constraint",
+  "type": "object"
+}

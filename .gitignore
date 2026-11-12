@@ -1,0 +1,61 @@
+# Local runtimes and caches
+.tools
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+node_modules
+*.egg-info/
+
+# Built frontend and test output
+dist/
+dist-shop/
+dist-admin/
+.next/
+.next-*/
+next-env.d.ts
+*.tsbuildinfo
+test-results/
+playwright-report/
+
+# Research inputs, prepared models/indices, database and experiment output
+/data/
+/artifacts
+/outputs
+*.sqlite
+*.sqlite3
+*.db
+
+# Local service credentials and deployment pointers
+/configs/local/
+.env
+.env.*
+!.env.example
+*.secret
+*.key
+*.pem
+
+# Archived local implementation notes
+/FIX*_STATUS.md
+.DS_Store
+
+# Private development guidance and verification (kept locally)
+/AGENTS.md
+/GOAL.md
+/Makefile
+/docs/DECISIONS.md
+/docs/STATUS.md
+/docs/TESTING.md
+/docs/DESIGN_PHILOSOPHY.md
+**/tests/
+/examples/sample_data/
+/scripts/bootstrap.sh
+/scripts/env.sh
+/scripts/native-db.sh
+/scripts/start-platform-dev.sh
+/scripts/start-shop.sh
+/scripts/smoke.py
+/scripts/prepare-native-browser.py
+/scripts/entry_migration_audit.py
+/scripts/verify_contracts.py

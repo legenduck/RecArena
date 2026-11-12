@@ -1,0 +1,37 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "block_id": {
+      "maxLength": 160,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+      "title": "Block Id",
+      "type": "string"
+    },
+    "main_page": {
+      "minimum": 1,
+      "title": "Main Page",
+      "type": "integer"
+    },
+    "result_snapshot_id": {
+      "maxLength": 160,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+      "title": "Result Snapshot Id",
+      "type": "string"
+    },
+    "section_page": {
+      "minimum": 1,
+      "title": "Section Page",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "result_snapshot_id",
+    "main_page",
+    "block_id",
+    "section_page"
+  ],
+  "title": "SectionPagePayload",
+  "type": "object"
+}

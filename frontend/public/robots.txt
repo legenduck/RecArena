@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /s/
+Disallow: /api/sessions
+Disallow: /api/control/
+Disallow: /internal/

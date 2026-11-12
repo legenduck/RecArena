@@ -1,0 +1,95 @@
+{
+  "additionalProperties": false,
+  "description": "Streaming representation of the same catalog entities, sealed by a manifest.",
+  "properties": {
+    "dataset_snapshot_id": {
+      "maxLength": 160,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+      "title": "Dataset Snapshot Id",
+      "type": "string"
+    },
+    "format": {
+      "const": "catalog-jsonl-v1",
+      "default": "catalog-jsonl-v1",
+      "title": "Format",
+      "type": "string"
+    },
+    "history_file": {
+      "const": "history.jsonl",
+      "default": "history.jsonl",
+      "title": "History File",
+      "type": "string"
+    },
+    "history_fingerprint": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "History Fingerprint",
+      "type": "string"
+    },
+    "history_snapshot_id": {
+      "maxLength": 160,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+      "title": "History Snapshot Id",
+      "type": "string"
+    },
+    "products_file": {
+      "const": "products.jsonl",
+      "default": "products.jsonl",
+      "title": "Products File",
+      "type": "string"
+    },
+    "review_cutoff": {
+      "anyOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Review Cutoff"
+    },
+    "review_snapshot_id": {
+      "maxLength": 160,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+      "title": "Review Snapshot Id",
+      "type": "string"
+    },
+    "reviews_file": {
+      "const": "reviews.jsonl",
+      "default": "reviews.jsonl",
+      "title": "Reviews File",
+      "type": "string"
+    },
+    "schema_version": {
+      "const": "1.0",
+      "default": "1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "tasks_file": {
+      "const": "tasks.jsonl",
+      "default": "tasks.jsonl",
+      "title": "Tasks File",
+      "type": "string"
+    },
+    "variants_file": {
+      "const": "variants.jsonl",
+      "default": "variants.jsonl",
+      "title": "Variants File",
+      "type": "string"
+    }
+  },
+  "required": [
+    "dataset_snapshot_id",
+    "review_snapshot_id",
+    "history_snapshot_id",
+    "history_fingerprint"
+  ],
+  "title": "CatalogPackage",
+  "type": "object"
+}

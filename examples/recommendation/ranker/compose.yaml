@@ -1,0 +1,79 @@
+# Compose with -f compose.yaml -f examples/recommendation/ranker/compose.yaml
+x-build-args: &build-args
+  RECARENA_CODE_COMMIT: ${RECARENA_CODE_COMMIT:-}
+  RECARENA_SOURCE_TREE_SHA256: ${RECARENA_SOURCE_TREE_SHA256:-}
+  RECARENA_CODE_DIRTY: ${RECARENA_CODE_DIRTY:-}
+
+x-runtime: &runtime
+  platform: linux/amd64
+  user: "${RECARENA_UID:?Run recarena init first}:${RECARENA_GID:?Run recarena init first}"
+  init: true
+  read_only: true
+  cap_drop: [ALL]
+  security_opt: [no-new-privileges:true]
+  tmpfs: [/tmp]
+  restart: unless-stopped
+  pull_policy: never
+
+services:
+  ranking-api:
+    <<: *runtime
+    build:
+      context: .
+      dockerfile: examples/recommendation/ranker/proxy.Dockerfile
+    image: recarena-ranker-proxy:${RECARENA_IMAGE_TAG:-local}
+    networks: [backend]
+    depends_on:
+      ranking-worker: {condition: service_healthy}
+    healthcheck:
+      test: [CMD, wget, -q, -O, /dev/null, http://127.0.0.1:8011/health/ready]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    logging:
+      options: {max-size: "10m", max-file: "3"}
+
+  ranking-worker:
+    <<: *runtime
+    build:
+      context: .
+      dockerfile: examples/recommendation/ranker/Dockerfile
+      args: *build-args
+    image: recarena-ranker:${RECARENA_IMAGE_TAG:-local}
+    environment:
+      RECARENA_INTERNAL_TOKEN_FILE: /run/secrets/internal_token
+      RECARENA_RANKER_CONFIG: /app/configs/local/docker/ranker.json
+      # Replicas receive individual HTTP requests through ranking-api.
+      RECARENA_RANKER_WORKERS: "1"
+      RECARENA_BM25_K: ${RECARENA_BM25_K:-}
+      RECARENA_POP_DELTA_T: ${RECARENA_POP_DELTA_T:-}
+      RECARENA_POP_TAU: ${RECARENA_POP_TAU:-}
+      RECARENA_PERSONAL_LAMBDA: ${RECARENA_PERSONAL_LAMBDA:-}
+      RECARENA_DIV_LAMBDA: ${RECARENA_DIV_LAMBDA:-}
+      RECARENA_ARTIFACT_ROOT: /app/artifacts/runtime
+      RECARENA_RANKER_REGISTRATIONS: /app/runtime-state/ranker-registrations.json
+    secrets: [internal_token]
+    # Runtime staging contains only verified Lucene/scoring artifacts, never
+    # CatalogBundle/task files, raw data, checkpoints or evaluation outputs.
+    volumes:
+      - ./artifacts/runtime:/app/artifacts/runtime:ro
+      - ./configs/local/docker/ranker.json:/app/configs/local/docker/ranker.json:ro
+      - ./outputs/ranker-state:/app/runtime-state
+    networks: [backend]
+    deploy:
+      replicas: ${RECARENA_RANKER_REPLICAS:-1}
+    healthcheck:
+      test: [CMD, python, -c, "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8011/health/ready',timeout=2)"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  prepare-ranking:
+    <<: *runtime
+    profiles: [prepare]
+    image: recarena-ranker:${RECARENA_IMAGE_TAG:-local}
+    restart: "no"
+    # Pyserini 2.4 reads its version-pinned index metadata during import.
+    network_mode: bridge
+    volumes: [./artifacts:/app/artifacts]
+    command: [python, -m, recarena_ranker.build.index, --help]

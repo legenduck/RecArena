@@ -1,0 +1,73 @@
+{
+  "$defs": {
+    "JsonValue": {}
+  },
+  "additionalProperties": false,
+  "properties": {
+    "client_sequence": {
+      "minimum": 0,
+      "title": "Client Sequence",
+      "type": "integer"
+    },
+    "documentId": {
+      "anyOf": [
+        {
+          "format": "uuid",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Documentid"
+    },
+    "event_id": {
+      "format": "uuid",
+      "title": "Event Id",
+      "type": "string"
+    },
+    "event_type": {
+      "enum": [
+        "page_viewed",
+        "item_list_rendered",
+        "product_clicked",
+        "result_page_changed",
+        "section_page_changed",
+        "scroll_sampled",
+        "reviews_rendered",
+        "review_section_entered",
+        "review_expanded"
+      ],
+      "title": "Event Type",
+      "type": "string"
+    },
+    "occurred_at": {
+      "format": "date-time",
+      "title": "Occurred At",
+      "type": "string"
+    },
+    "payload": {
+      "additionalProperties": {
+        "$ref": "#/$defs/JsonValue"
+      },
+      "title": "Payload",
+      "type": "object"
+    },
+    "viewId": {
+      "format": "uuid",
+      "title": "Viewid",
+      "type": "string"
+    }
+  },
+  "required": [
+    "viewId",
+    "event_id",
+    "event_type",
+    "occurred_at",
+    "client_sequence",
+    "payload"
+  ],
+  "title": "BrowserEvent",
+  "type": "object"
+}

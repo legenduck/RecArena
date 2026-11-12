@@ -1,0 +1,50 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "item_key": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Item Key"
+    },
+    "product_id": {
+      "maxLength": 160,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+      "title": "Product Id",
+      "type": "string"
+    },
+    "quantity": {
+      "maximum": 99,
+      "minimum": 1,
+      "title": "Quantity",
+      "type": "integer"
+    },
+    "variant_id": {
+      "maxLength": 160,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+      "title": "Variant Id",
+      "type": "string"
+    },
+    "viewId": {
+      "format": "uuid",
+      "title": "Viewid",
+      "type": "string"
+    }
+  },
+  "required": [
+    "viewId",
+    "product_id",
+    "variant_id",
+    "quantity"
+  ],
+  "title": "BrowserPurchase",
+  "type": "object"
+}

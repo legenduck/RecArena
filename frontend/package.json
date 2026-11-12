@@ -1,0 +1,26 @@
+{
+  "name": "@recarena/web",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "next dev --hostname 127.0.0.1 --port 5173",
+    "start": "next start --hostname 127.0.0.1 --port 5173",
+    "dev:admin": "vite --config vite.admin.config.ts",
+    "build": "next build && npm run build:admin",
+    "build:shop": "next build",
+    "build:admin": "vite build --mode admin --outDir dist-admin"
+  },
+  "dependencies": {
+    "next": "16.4.5",
+    "react": "19.1.0",
+    "react-dom": "19.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "24.3.0",
+    "@types/react": "19.1.4",
+    "@types/react-dom": "19.1.5",
+    "typescript": "5.8.3",
+    "vite": "6.4.4"
+  }
+}

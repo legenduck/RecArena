@@ -1,0 +1,36 @@
+# Compose with -f compose.yaml -f examples/recommendation/training/compose.yaml
+x-build-args: &build-args
+  RECARENA_CODE_COMMIT: ${RECARENA_CODE_COMMIT:-}
+  RECARENA_SOURCE_TREE_SHA256: ${RECARENA_SOURCE_TREE_SHA256:-}
+  RECARENA_CODE_DIRTY: ${RECARENA_CODE_DIRTY:-}
+
+x-runtime: &runtime
+  platform: linux/amd64
+  user: "${RECARENA_UID:?Run recarena init first}:${RECARENA_GID:?Run recarena init first}"
+  init: true
+  read_only: true
+  cap_drop: [ALL]
+  security_opt: [no-new-privileges:true]
+  tmpfs: [/tmp]
+  restart: unless-stopped
+  pull_policy: never
+
+services:
+  train:
+    <<: *runtime
+    profiles: [train]
+    restart: "no"
+    build:
+      context: .
+      dockerfile: examples/recommendation/training/Dockerfile
+      args: *build-args
+    image: recarena-training:${RECARENA_IMAGE_TAG:-local}
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              device_ids: ["${RECARENA_TRAINING_GPU:-0}"]
+              capabilities: [gpu]
+    network_mode: none
+    volumes: [./artifacts:/app/artifacts, ./configs/local/jobs:/app/configs/jobs:ro]

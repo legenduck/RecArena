@@ -1,0 +1,36 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "verdict",
+    "not_met_reason",
+    "evidence"
+  ],
+  "properties": {
+    "verdict": {
+      "type": "string",
+      "enum": [
+        "met",
+        "not_met",
+        "not_applicable"
+      ]
+    },
+    "not_met_reason": {
+      "anyOf": [
+        {
+          "type": "string",
+          "enum": [
+            "contradicted",
+            "absent"
+          ]
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "evidence": {
+      "type": "string"
+    }
+  }
+}

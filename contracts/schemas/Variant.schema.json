@@ -1,0 +1,120 @@
+{
+  "$defs": {
+    "JsonValue": {}
+  },
+  "additionalProperties": false,
+  "properties": {
+    "attributes_override": {
+      "additionalProperties": {
+        "$ref": "#/$defs/JsonValue"
+      },
+      "title": "Attributes Override",
+      "type": "object"
+    },
+    "currency": {
+      "pattern": "^[A-Z]{3}$",
+      "title": "Currency",
+      "type": "string"
+    },
+    "dataset_snapshot_id": {
+      "maxLength": 160,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+      "title": "Dataset Snapshot Id",
+      "type": "string"
+    },
+    "image_asset_ids": {
+      "default": [],
+      "items": {
+        "maxLength": 160,
+        "minLength": 1,
+        "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+        "type": "string"
+      },
+      "title": "Image Asset Ids",
+      "type": "array"
+    },
+    "image_urls": {
+      "default": [],
+      "items": {
+        "format": "uri",
+        "pattern": "^https?://",
+        "type": "string"
+      },
+      "title": "Image Urls",
+      "type": "array"
+    },
+    "is_available": {
+      "title": "Is Available",
+      "type": "boolean"
+    },
+    "is_purchasable": {
+      "title": "Is Purchasable",
+      "type": "boolean"
+    },
+    "option_values": {
+      "additionalProperties": {
+        "type": "string"
+      },
+      "title": "Option Values",
+      "type": "object"
+    },
+    "product_id": {
+      "maxLength": 160,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+      "title": "Product Id",
+      "type": "string"
+    },
+    "provenance": {
+      "additionalProperties": {
+        "$ref": "#/$defs/JsonValue"
+      },
+      "title": "Provenance",
+      "type": "object"
+    },
+    "source_asin": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Source Asin"
+    },
+    "unit_price_minor": {
+      "anyOf": [
+        {
+          "minimum": 0,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Unit Price Minor"
+    },
+    "variant_id": {
+      "maxLength": 160,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+      "title": "Variant Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "dataset_snapshot_id",
+    "variant_id",
+    "product_id",
+    "currency",
+    "is_available",
+    "is_purchasable",
+    "provenance"
+  ],
+  "title": "Variant",
+  "type": "object"
+}

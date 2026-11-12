@@ -1,0 +1,294 @@
+{
+  "$defs": {
+    "JsonValue": {},
+    "Product": {
+      "additionalProperties": false,
+      "properties": {
+        "attributes": {
+          "additionalProperties": {
+            "$ref": "#/$defs/JsonValue"
+          },
+          "title": "Attributes",
+          "type": "object"
+        },
+        "brand": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Brand"
+        },
+        "categories": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "title": "Categories",
+          "type": "array"
+        },
+        "currency": {
+          "pattern": "^[A-Z]{3}$",
+          "title": "Currency",
+          "type": "string"
+        },
+        "dataset_snapshot_id": {
+          "maxLength": 160,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "title": "Dataset Snapshot Id",
+          "type": "string"
+        },
+        "description": {
+          "default": "",
+          "title": "Description",
+          "type": "string"
+        },
+        "display_rating": {
+          "anyOf": [
+            {
+              "maximum": 5,
+              "minimum": 1,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Display Rating"
+        },
+        "display_review_count": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Display Review Count",
+          "type": "integer"
+        },
+        "features": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "title": "Features",
+          "type": "array"
+        },
+        "image_asset_ids": {
+          "default": [],
+          "items": {
+            "maxLength": 160,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+            "type": "string"
+          },
+          "title": "Image Asset Ids",
+          "type": "array"
+        },
+        "image_urls": {
+          "default": [],
+          "items": {
+            "format": "uri",
+            "pattern": "^https?://",
+            "type": "string"
+          },
+          "title": "Image Urls",
+          "type": "array"
+        },
+        "product_id": {
+          "maxLength": 160,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "title": "Product Id",
+          "type": "string"
+        },
+        "product_status": {
+          "default": "active",
+          "enum": [
+            "active",
+            "excluded"
+          ],
+          "title": "Product Status",
+          "type": "string"
+        },
+        "source_parent_asin": {
+          "title": "Source Parent Asin",
+          "type": "string"
+        },
+        "source_provenance": {
+          "additionalProperties": {
+            "$ref": "#/$defs/JsonValue"
+          },
+          "title": "Source Provenance",
+          "type": "object"
+        },
+        "title": {
+          "minLength": 1,
+          "title": "Title",
+          "type": "string"
+        }
+      },
+      "required": [
+        "dataset_snapshot_id",
+        "product_id",
+        "source_parent_asin",
+        "title",
+        "currency",
+        "source_provenance"
+      ],
+      "title": "Product",
+      "type": "object"
+    },
+    "Variant": {
+      "additionalProperties": false,
+      "properties": {
+        "attributes_override": {
+          "additionalProperties": {
+            "$ref": "#/$defs/JsonValue"
+          },
+          "title": "Attributes Override",
+          "type": "object"
+        },
+        "currency": {
+          "pattern": "^[A-Z]{3}$",
+          "title": "Currency",
+          "type": "string"
+        },
+        "dataset_snapshot_id": {
+          "maxLength": 160,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "title": "Dataset Snapshot Id",
+          "type": "string"
+        },
+        "image_asset_ids": {
+          "default": [],
+          "items": {
+            "maxLength": 160,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+            "type": "string"
+          },
+          "title": "Image Asset Ids",
+          "type": "array"
+        },
+        "image_urls": {
+          "default": [],
+          "items": {
+            "format": "uri",
+            "pattern": "^https?://",
+            "type": "string"
+          },
+          "title": "Image Urls",
+          "type": "array"
+        },
+        "is_available": {
+          "title": "Is Available",
+          "type": "boolean"
+        },
+        "is_purchasable": {
+          "title": "Is Purchasable",
+          "type": "boolean"
+        },
+        "option_values": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "title": "Option Values",
+          "type": "object"
+        },
+        "product_id": {
+          "maxLength": 160,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "title": "Product Id",
+          "type": "string"
+        },
+        "provenance": {
+          "additionalProperties": {
+            "$ref": "#/$defs/JsonValue"
+          },
+          "title": "Provenance",
+          "type": "object"
+        },
+        "source_asin": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Source Asin"
+        },
+        "unit_price_minor": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Unit Price Minor"
+        },
+        "variant_id": {
+          "maxLength": 160,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "title": "Variant Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "dataset_snapshot_id",
+        "variant_id",
+        "product_id",
+        "currency",
+        "is_available",
+        "is_purchasable",
+        "provenance"
+      ],
+      "title": "Variant",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Raw registered products and choices; consumers own any search projection.",
+  "properties": {
+    "catalog_snapshot_id": {
+      "maxLength": 160,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+      "title": "Catalog Snapshot Id",
+      "type": "string"
+    },
+    "products": {
+      "items": {
+        "$ref": "#/$defs/Product"
+      },
+      "title": "Products",
+      "type": "array"
+    },
+    "variants": {
+      "items": {
+        "$ref": "#/$defs/Variant"
+      },
+      "title": "Variants",
+      "type": "array"
+    }
+  },
+  "required": [
+    "catalog_snapshot_id",
+    "products",
+    "variants"
+  ],
+  "title": "CatalogProducts",
+  "type": "object"
+}

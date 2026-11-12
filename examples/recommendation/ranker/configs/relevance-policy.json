@@ -1,0 +1,7 @@
+{
+  "policy_id": "my-relevance",
+  "name": "My relevance policy",
+  "catalog_snapshot_id": "REPLACE_WITH_CATALOG_ID",
+  "index_artifact_id": "REPLACE_WITH_INDEX_ID",
+  "configuration": {"family": "relevance", "implementation_id": "lucene_bm25_v1"}
+}

@@ -1,0 +1,71 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "history_snapshot_id": {
+      "maxLength": 160,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+      "title": "History Snapshot Id",
+      "type": "string"
+    },
+    "interaction_type": {
+      "const": "review_observed",
+      "default": "review_observed",
+      "title": "Interaction Type",
+      "type": "string"
+    },
+    "product_id": {
+      "maxLength": 160,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+      "title": "Product Id",
+      "type": "string"
+    },
+    "rating": {
+      "anyOf": [
+        {
+          "maximum": 5,
+          "minimum": 1,
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Rating"
+    },
+    "source_asin": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Source Asin"
+    },
+    "timestamp_utc": {
+      "format": "date-time",
+      "title": "Timestamp Utc",
+      "type": "string"
+    },
+    "user_id": {
+      "maxLength": 160,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+      "title": "User Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "history_snapshot_id",
+    "user_id",
+    "product_id",
+    "timestamp_utc"
+  ],
+  "title": "Interaction",
+  "type": "object"
+}
